@@ -1,0 +1,3576 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnonBack — Anonymous Feedback. Better Healthcare.</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7faff;
+            color: #102a43;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e8eef5;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #123c78;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: #1261d6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-link {
+            color: #52677d;
+            font-size: 15px;
+            text-decoration: none;
+        }
+
+        .lang-switch {
+            display: flex;
+            border: 1px solid #d6e1ed;
+            border-radius: 9px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            color: #52677d;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 13px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .lang-btn+.lang-btn {
+            border-left: 1px solid #d6e1ed;
+        }
+
+        .lang-btn:hover {
+            background: #f2f7fd;
+        }
+
+        .lang-btn.active,
+        .lang-btn.active:hover {
+            background: #1261d6;
+            color: #ffffff;
+        }
+
+        .hero {
+            min-height: calc(100vh - 78px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 70px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            border-radius: 30px;
+            background: #eaf3ff;
+            color: #1261d6;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            line-height: 1.08;
+            letter-spacing: -2.5px;
+            color: #102f5b;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .accent {
+            color: #1261d6;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 19px;
+            line-height: 1.7;
+            color: #61758a;
+        }
+
+        .hero-actions {
+            margin-top: 38px;
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .primary-btn,
+        .submit-btn {
+            border: none;
+            background: #1261d6;
+            color: white;
+            padding: 15px 28px;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .primary-btn:hover,
+        .submit-btn:hover {
+            background: #0d4fae;
+            transform: translateY(-1px);
+        }
+
+        .secondary-btn {
+            border: 1px solid #d6e1ed;
+            background: white;
+            color: #294763;
+            padding: 15px 28px;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .trust-line {
+            margin-top: 45px;
+            font-size: 13px;
+            color: #8192a4;
+        }
+
+        .feedback-page {
+            display: none;
+            min-height: calc(100vh - 78px);
+            padding: 50px 70px 80px;
+        }
+
+        .feedback-container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            border: none;
+            background: transparent;
+            color: #52677d;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 0;
+            margin-bottom: 30px;
+        }
+
+        .feedback-header {
+            margin-bottom: 30px;
+        }
+
+        .feedback-header h2 {
+            font-size: 42px;
+            color: #102f5b;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .feedback-header p {
+            color: #61758a;
+            font-size: 17px;
+        }
+
+        .feedback-card {
+            background: #ffffff;
+            border: 1px solid #e3ebf3;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 12px 35px rgba(35, 71, 110, 0.06);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 9px;
+            color: #294763;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .form-group input[type="text"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #d7e2ec;
+            border-radius: 9px;
+            background: #fbfdff;
+            color: #263f58;
+            font-family: inherit;
+            font-size: 15px;
+            padding: 14px 15px;
+            outline: none;
+        }
+
+        .form-group select,
+        .form-group input[type="text"] {
+            height: 50px;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-group select:disabled {
+            background: #f1f5f9;
+            color: #8192a4;
+            cursor: not-allowed;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-row .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-error {
+            margin-bottom: 18px;
+            padding: 12px 14px;
+            border: 1px solid #fecdca;
+            border-radius: 9px;
+            background: #fef3f2;
+            color: #b42318;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #1261d6;
+            box-shadow: 0 0 0 3px rgba(18, 97, 214, 0.08);
+        }
+
+        .rating {
+            display: flex;
+            gap: 10px;
+        }
+
+        .rating button {
+            width: 48px;
+            height: 48px;
+            border: 1px solid #d7e2ec;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #49647e;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .rating button:hover,
+        .rating button.active {
+            background: #1261d6;
+            border-color: #1261d6;
+            color: #ffffff;
+        }
+
+        .submit-btn {
+            width: 100%;
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                padding: 0 25px;
+            }
+
+            .nav-right {
+                gap: 14px;
+            }
+
+            .nav-link {
+                font-size: 13px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .hero {
+                padding: 50px 25px;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .feedback-page {
+                padding: 35px 25px 60px;
+            }
+        }
+
+        .confirmation-card {
+            text-align: center;
+        }
+
+        .confirmation-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 22px;
+            border-radius: 50%;
+            background: #eaf3ff;
+            color: #1769d1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .confirmation-icon svg {
+            width: 30px;
+            height: 30px;
+        }
+
+
+        #confirmationPage {
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+        }
+
+        #confirmationPage .confirmation-card {
+            width: min(680px, 100%);
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+
+        #howItWorksPage {
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+        }
+
+        #howItWorksPage .how-card {
+            width: min(760px, 100%);
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .how-intro {
+            max-width: 620px;
+            margin: 0 auto 32px;
+        }
+
+        .how-steps {
+            display: grid;
+            gap: 16px;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .how-step {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 18px;
+            border: 1px solid #e6edf5;
+            border-radius: 14px;
+            background: #fbfdff;
+        }
+
+        .step-number {
+            flex: 0 0 34px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #1769d1;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .how-step h3 {
+            margin: 2px 0 6px;
+            font-size: 17px;
+        }
+
+        .how-step p {
+            margin: 0;
+            color: #607086;
+            line-height: 1.6;
+        }
+
+
+        /* Clean confirmation layout */
+        #confirmationPage .confirmation-card {
+            padding: 56px 64px;
+            text-align: center;
+        }
+
+        #confirmationPage .confirmation-icon {
+            margin-bottom: 28px;
+        }
+
+        #confirmationPage .badge {
+            display: inline-block;
+            margin-bottom: 22px;
+        }
+
+        #confirmationPage h2 {
+            margin: 0 0 20px;
+            line-height: 1.25;
+        }
+
+        #confirmationPage p {
+            max-width: 560px;
+            margin: 0 auto 34px;
+            line-height: 1.8;
+            color: #607086;
+        }
+
+        #confirmationPage .primary-btn {
+            margin-top: 4px;
+        }
+
+        /* Clean How It Works layout */
+        #howItWorksPage .how-card {
+            padding: 52px 56px;
+            text-align: center;
+        }
+
+        #howItWorksPage .badge {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        #howItWorksPage h2 {
+            margin: 0 0 18px;
+            line-height: 1.25;
+        }
+
+        #howItWorksPage .how-intro {
+            display: block;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 36px;
+            line-height: 1.8;
+            color: #607086;
+        }
+
+        #howItWorksPage .how-steps {
+            width: 100%;
+            margin: 0 auto 34px;
+            display: grid;
+            gap: 18px;
+            text-align: left;
+        }
+
+        #howItWorksPage .how-step {
+            min-height: 72px;
+            box-sizing: border-box;
+            padding: 20px 22px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        #howItWorksPage .step-number {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        #howItWorksPage .how-step h3 {
+            margin: 0 0 8px;
+            line-height: 1.35;
+        }
+
+        #howItWorksPage .how-step p {
+            margin: 0;
+            line-height: 1.65;
+            color: #607086;
+        }
+
+        #howItWorksPage .primary-btn {
+            margin-top: 0;
+        }
+
+        /* =====================================================
+           PROVIDER LOGIN
+           ===================================================== */
+        #providerLoginPage {
+            width: 100%;
+            min-height: calc(100vh - 78px);
+            box-sizing: border-box;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+        }
+
+        .login-card {
+            width: min(440px, 100%);
+            box-sizing: border-box;
+            background: #ffffff;
+            border: 1px solid #e3ebf3;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 12px 35px rgba(35, 71, 110, 0.06);
+        }
+
+        .login-card h2 {
+            font-size: 28px;
+            color: #102f5b;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .login-card>p {
+            color: #61758a;
+            font-size: 14px;
+            margin-bottom: 26px;
+        }
+
+        .prototype-note {
+            margin-top: 18px;
+            padding: 12px 14px;
+            border: 1px solid #ffe1a8;
+            border-radius: 9px;
+            background: #fff8ea;
+            color: #8a5a00;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .demo-hint {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #8192a4;
+        }
+
+        /* =====================================================
+           PROVIDER DASHBOARD
+           ===================================================== */
+        #providerDashboard {
+            display: none;
+            min-height: calc(100vh - 78px);
+        }
+
+        .dashboard-shell {
+            display: flex;
+            align-items: stretch;
+            min-height: calc(100vh - 78px);
+        }
+
+        .dashboard-sidebar {
+            width: 240px;
+            flex-shrink: 0;
+            background: #ffffff;
+            border-right: 1px solid #e8eef5;
+            padding: 28px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .dash-tab-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: none;
+            background: transparent;
+            color: #52677d;
+            font-family: inherit;
+            font-size: 14.5px;
+            font-weight: 600;
+            padding: 12px 14px;
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .dash-tab-btn:hover {
+            background: #f2f7fd;
+        }
+
+        .dash-tab-btn.active {
+            background: #eaf3ff;
+            color: #1261d6;
+        }
+
+        .dashboard-main {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+        }
+
+        .dash-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 26px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .dash-topbar h2 {
+            font-size: 26px;
+            color: #102f5b;
+            letter-spacing: -0.5px;
+        }
+
+        .demo-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: #fff2e0;
+            color: #a35b00;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .logout-btn {
+            border: 1px solid #d6e1ed;
+            background: #ffffff;
+            color: #294763;
+            padding: 10px 18px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #f2f7fd;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid #e3ebf3;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 13px;
+            color: #7488a0;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 30px;
+            font-weight: 700;
+            color: #102f5b;
+        }
+
+        .stat-card.negative .stat-value {
+            color: #b42318;
+        }
+
+        .stat-card.positive .stat-value {
+            color: #16794c;
+        }
+
+        .stat-card.priority .stat-value {
+            color: #a35b00;
+        }
+
+        .panel-card {
+            background: #ffffff;
+            border: 1px solid #e3ebf3;
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .panel-card h3 {
+            font-size: 17px;
+            color: #102f5b;
+            margin-bottom: 16px;
+        }
+
+        .ai-disclaimer {
+            padding: 14px 16px;
+            border: 1px solid #d6e1ed;
+            border-radius: 10px;
+            background: #f2f7fd;
+            color: #294763;
+            font-size: 13.5px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .filter-bar input,
+        .filter-bar select {
+            border: 1px solid #d7e2ec;
+            border-radius: 8px;
+            background: #fbfdff;
+            color: #263f58;
+            font-family: inherit;
+            font-size: 13.5px;
+            padding: 9px 11px;
+            height: 40px;
+        }
+
+        .filter-bar input[type="text"] {
+            min-width: 200px;
+            flex: 1 1 200px;
+        }
+
+        .filter-bar input[type="date"] {
+            min-width: 140px;
+        }
+
+        .filter-reset-btn {
+            border: 1px solid #d6e1ed;
+            background: #ffffff;
+            color: #52677d;
+            font-size: 13.5px;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 9px 14px;
+            cursor: pointer;
+            height: 40px;
+        }
+
+        .results-count {
+            font-size: 13px;
+            color: #7488a0;
+            margin-bottom: 14px;
+        }
+
+        .data-table-wrap {
+            overflow-x: auto;
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+
+        table.data-table th {
+            text-align: left;
+            padding: 10px 12px;
+            color: #7488a0;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 1px solid #e8eef5;
+            white-space: nowrap;
+        }
+
+        table.data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eef3f8;
+            color: #294763;
+            white-space: nowrap;
+        }
+
+        table.data-table td.wrap {
+            white-space: normal;
+            max-width: 260px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .pill-positive {
+            background: #e6f6ee;
+            color: #16794c;
+        }
+
+        .pill-neutral {
+            background: #f0f2f5;
+            color: #52677d;
+        }
+
+        .pill-negative {
+            background: #fef3f2;
+            color: #b42318;
+        }
+
+        .pill-high {
+            background: #fef3f2;
+            color: #b42318;
+        }
+
+        .pill-medium {
+            background: #fff8ea;
+            color: #8a5a00;
+        }
+
+        .pill-low {
+            background: #eaf3ff;
+            color: #1261d6;
+        }
+
+        .pill-planned {
+            background: #f0f2f5;
+            color: #52677d;
+        }
+
+        .pill-in-progress {
+            background: #eaf3ff;
+            color: #1261d6;
+        }
+
+        .pill-implemented {
+            background: #e6f6ee;
+            color: #16794c;
+        }
+
+        .view-btn {
+            border: 1px solid #d6e1ed;
+            background: #ffffff;
+            color: #1261d6;
+            font-size: 12.5px;
+            font-weight: 700;
+            border-radius: 7px;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .view-btn:hover {
+            background: #eaf3ff;
+        }
+
+        .empty-state {
+            padding: 30px 10px;
+            text-align: center;
+            color: #7488a0;
+            font-size: 14px;
+        }
+
+        .bar-row {
+            display: grid;
+            grid-template-columns: 170px 1fr 60px;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 13.5px;
+        }
+
+        .bar-row .bar-name {
+            color: #294763;
+            font-weight: 600;
+        }
+
+        .bar-track {
+            height: 10px;
+            border-radius: 6px;
+            background: #eef3f8;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: #1261d6;
+            border-radius: 6px;
+        }
+
+        .bar-row .bar-value {
+            text-align: right;
+            color: #7488a0;
+            font-weight: 600;
+        }
+
+        .insight-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .insight-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eef3f8;
+            font-size: 14px;
+            color: #294763;
+        }
+
+        .insight-list li:last-child {
+            border-bottom: none;
+        }
+
+        .trend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .trend-card .trend-periods {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #7488a0;
+        }
+
+        .trend-card .trend-delta {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .trend-delta.up-bad {
+            color: #b42318;
+        }
+
+        .trend-delta.up-good {
+            color: #16794c;
+        }
+
+        .trend-delta.down-good {
+            color: #16794c;
+        }
+
+        .trend-delta.down-bad {
+            color: #b42318;
+        }
+
+        .trend-delta.flat {
+            color: #7488a0;
+        }
+
+        .action-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .action-form .full {
+            grid-column: 1 / -1;
+        }
+
+        .action-form label {
+            display: block;
+            margin-bottom: 7px;
+            color: #294763;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .action-form input,
+        .action-form select,
+        .action-form textarea {
+            width: 100%;
+            border: 1px solid #d7e2ec;
+            border-radius: 8px;
+            background: #fbfdff;
+            color: #263f58;
+            font-family: inherit;
+            font-size: 14px;
+            padding: 10px 12px;
+            box-sizing: border-box;
+        }
+
+        .action-form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .action-card {
+            border: 1px solid #e3ebf3;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+        }
+
+        .action-card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .action-card-head .action-cat {
+            font-weight: 700;
+            color: #102f5b;
+        }
+
+        .action-card p {
+            color: #61758a;
+            font-size: 13.5px;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .action-date {
+            font-size: 12.5px;
+            color: #8192a4;
+        }
+
+        .correlation-note {
+            margin-top: 8px;
+            font-size: 12.5px;
+            color: #294763;
+            background: #f7faff;
+            border: 1px solid #e8eef5;
+            border-radius: 8px;
+            padding: 8px 10px;
+        }
+
+        /* Feedback detail modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(16, 42, 67, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 50;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            width: min(560px, 100%);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-card h3 {
+            font-size: 20px;
+            color: #102f5b;
+            margin-bottom: 18px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 9px 0;
+            border-bottom: 1px solid #eef3f8;
+            font-size: 13.5px;
+        }
+
+        .detail-row .detail-label {
+            color: #7488a0;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .detail-row .detail-value {
+            color: #263f58;
+            text-align: right;
+        }
+
+        .detail-text-block {
+            margin-top: 14px;
+            padding: 12px 14px;
+            background: #f7faff;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #294763;
+            line-height: 1.6;
+        }
+
+        .modal-close-btn {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-shell {
+                flex-direction: column;
+            }
+
+            .dashboard-sidebar {
+                width: 100%;
+                flex-direction: row;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid #e8eef5;
+            }
+
+            .dashboard-main {
+                padding: 24px 20px 50px;
+            }
+
+            .action-form {
+                grid-template-columns: 1fr;
+            }
+
+            .bar-row {
+                grid-template-columns: 120px 1fr 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-mark">A</div>
+            <span>AnonBack</span>
+        </div>
+
+        <div class="nav-right">
+            <div class="lang-switch" role="group" data-i18n-aria-label="nav.language" aria-label="Language">
+                <button type="button" class="lang-btn" data-lang="uz" aria-pressed="false">UZ</button>
+                <button type="button" class="lang-btn" data-lang="ru" aria-pressed="false">Рус</button>
+                <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">ENG</button>
+            </div>
+
+            <button type="button" class="nav-link" onclick="openProviderEntry()" data-i18n="nav.providers">For
+                Healthcare Providers</button>
+        </div>
+    </nav>
+
+    <main>
+
+        <section class="hero" id="home">
+            <div class="hero-content">
+
+                <div class="badge" data-i18n="hero.badge"></div>
+
+                <h1>
+                    <span data-i18n="hero.title1"></span><br>
+                    <span class="accent" data-i18n="hero.title2"></span>
+                </h1>
+
+                <p data-i18n="hero.desc"></p>
+
+                <div class="hero-actions">
+                    <button class="primary-btn" onclick="showFeedback()" data-i18n="hero.cta"></button>
+
+                    <button class="secondary-btn" onclick="learnMore()" data-i18n="hero.how"></button>
+                </div>
+
+                <div class="trust-line" data-i18n="hero.trust"></div>
+
+            </div>
+        </section>
+
+        <section class="feedback-page" id="feedbackPage">
+
+            <div class="feedback-container">
+
+                <button class="back-btn" onclick="showHome()" data-i18n="common.back"></button>
+
+                <div class="feedback-header">
+                    <div class="badge" data-i18n="fb.badge"></div>
+
+                    <h2 data-i18n="fb.title"></h2>
+
+                    <p data-i18n="fb.subtitle"></p>
+                </div>
+
+                <div class="feedback-card" id="feedbackCard">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="region" data-i18n="fb.region"></label>
+                            <select id="region"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="district" data-i18n="fb.district"></label>
+                            <select id="district" disabled></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hospital" data-i18n="fb.hospital"></label>
+                        <input type="text" id="hospital" maxlength="150" autocomplete="off"
+                            data-i18n-placeholder="fb.hospitalPh">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="feedbackText" data-i18n="fb.text"></label>
+
+                        <textarea id="feedbackText" data-i18n-placeholder="fb.textPh"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category" data-i18n="fb.category"></label>
+
+                        <select id="category">
+                            <option value="" data-i18n="fb.categoryPh"></option>
+                            <option value="waiting-time" data-i18n="cat.waitingTime"></option>
+                            <option value="staff-communication" data-i18n="cat.staffCommunication"></option>
+                            <option value="registration" data-i18n="cat.registration"></option>
+                            <option value="cleanliness" data-i18n="cat.cleanliness"></option>
+                            <option value="doctor-experience" data-i18n="cat.doctorExperience"></option>
+                            <option value="other" data-i18n="cat.other"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="fb.rating"></label>
+
+                        <div class="rating">
+                            <button type="button" onclick="setRating(1)" data-rating="1">1</button>
+                            <button type="button" onclick="setRating(2)" data-rating="2">2</button>
+                            <button type="button" onclick="setRating(3)" data-rating="3">3</button>
+                            <button type="button" onclick="setRating(4)" data-rating="4">4</button>
+                            <button type="button" onclick="setRating(5)" data-rating="5">5</button>
+                        </div>
+                    </div>
+
+                    <div class="form-error" id="formError" role="alert" hidden></div>
+
+                    <button class="submit-btn" onclick="submitFeedback()" data-i18n="fb.submit"></button>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <section id="howItWorksPage" class="page" style="display: none;">
+        <div class="feedback-card how-card">
+            <span class="badge" data-i18n="how.badge"></span>
+            <h2 data-i18n="how.title"></h2>
+            <p class="how-intro" data-i18n="how.intro"></p>
+
+            <div class="how-steps">
+                <div class="how-step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h3 data-i18n="how.s1t"></h3>
+                        <p data-i18n="how.s1d"></p>
+                    </div>
+                </div>
+
+                <div class="how-step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h3 data-i18n="how.s2t"></h3>
+                        <p data-i18n="how.s2d"></p>
+                    </div>
+                </div>
+
+                <div class="how-step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h3 data-i18n="how.s3t"></h3>
+                        <p data-i18n="how.s3d"></p>
+                    </div>
+                </div>
+
+                <div class="how-step">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h3 data-i18n="how.s4t"></h3>
+                        <p data-i18n="how.s4d"></p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="primary-btn" onclick="showHome()" data-i18n="common.backHome"></button>
+        </div>
+    </section>
+
+    <section id="confirmationPage" class="page" style="display: none;">
+        <div class="feedback-card confirmation-card">
+            <div class="confirmation-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="5 12.5 10 17.5 19 7"></polyline>
+                </svg>
+            </div>
+            <span class="badge" data-i18n="conf.badge"></span>
+            <h2 data-i18n="conf.title"></h2>
+            <p data-i18n="conf.desc"></p>
+            <button class="primary-btn" onclick="showHome()" data-i18n="common.backHome"></button>
+        </div>
+    </section>
+
+    <section id="providerLoginPage" class="page">
+        <div class="login-card">
+            <span class="badge" data-i18n="login.badge"></span>
+            <h2 data-i18n="login.title"></h2>
+            <p data-i18n="login.subtitle"></p>
+
+            <div class="form-group">
+                <label for="loginEmail" data-i18n="login.email"></label>
+                <input type="text" id="loginEmail" autocomplete="off" data-i18n-placeholder="login.emailPh">
+            </div>
+
+            <div class="form-group">
+                <label for="loginPassword" data-i18n="login.password"></label>
+                <input type="password" id="loginPassword" autocomplete="off" data-i18n-placeholder="login.passwordPh">
+            </div>
+
+            <div class="form-error" id="loginError" role="alert" hidden></div>
+
+            <button class="primary-btn submit-btn" onclick="providerLogin()" data-i18n="login.signIn"></button>
+            <button class="secondary-btn submit-btn" style="margin-top:10px;" onclick="showHome()"
+                data-i18n="login.backToAnonback"></button>
+
+            <div class="prototype-note" data-i18n="login.prototypeNotice"></div>
+            <div class="demo-hint" data-i18n="login.demoHint"></div>
+        </div>
+    </section>
+
+    <section id="providerDashboard">
+        <div class="dashboard-shell">
+            <aside class="dashboard-sidebar">
+                <button type="button" class="dash-tab-btn" data-tab="overview" onclick="showDashboardTab('overview')"
+                    data-i18n="dash.tabOverview"></button>
+                <button type="button" class="dash-tab-btn" data-tab="feedback" onclick="showDashboardTab('feedback')"
+                    data-i18n="dash.tabFeedback"></button>
+                <button type="button" class="dash-tab-btn" data-tab="analytics" onclick="showDashboardTab('analytics')"
+                    data-i18n="dash.tabAnalytics"></button>
+                <button type="button" class="dash-tab-btn" data-tab="ai" onclick="showDashboardTab('ai')"
+                    data-i18n="dash.tabAI"></button>
+                <button type="button" class="dash-tab-btn" data-tab="trends" onclick="showDashboardTab('trends')"
+                    data-i18n="dash.tabTrends"></button>
+                <button type="button" class="dash-tab-btn" data-tab="actions" onclick="showDashboardTab('actions')"
+                    data-i18n="dash.tabActions"></button>
+            </aside>
+
+            <div class="dashboard-main">
+                <div class="dash-topbar">
+                    <h2 data-i18n="dash.title"></h2>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span class="demo-badge" data-i18n="common.demoDataBadge"></span>
+                        <button type="button" class="logout-btn" onclick="providerLogout()"
+                            data-i18n="common.logout"></button>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="tab-overview">
+                    <div class="stat-cards">
+                        <div class="stat-card">
+                            <div class="stat-label" data-i18n="stat.total"></div>
+                            <div class="stat-value" id="statTotal">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label" data-i18n="stat.avgRating"></div>
+                            <div class="stat-value" id="statAvgRating">0</div>
+                        </div>
+                        <div class="stat-card positive">
+                            <div class="stat-label" data-i18n="stat.positive"></div>
+                            <div class="stat-value" id="statPositive">0</div>
+                        </div>
+                        <div class="stat-card negative">
+                            <div class="stat-label" data-i18n="stat.negative"></div>
+                            <div class="stat-value" id="statNegative">0</div>
+                        </div>
+                        <div class="stat-card priority">
+                            <div class="stat-label" data-i18n="stat.highPriority"></div>
+                            <div class="stat-value" id="statHighPriority">0</div>
+                        </div>
+                    </div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="ai.mostCommonIssue"></h3>
+                        <div id="overviewTopIssue"></div>
+                    </div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="analytics.byCategory"></h3>
+                        <div id="overviewCategoryBars"></div>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="tab-feedback">
+                    <div class="filter-bar">
+                        <input type="text" id="filterSearch" data-i18n-placeholder="filter.search">
+                        <select id="filterCategory"></select>
+                        <select id="filterRating"></select>
+                        <select id="filterSentiment"></select>
+                        <select id="filterPriority"></select>
+                        <select id="filterRegion"></select>
+                        <select id="filterDistrict"></select>
+                        <input type="date" id="filterDateFrom">
+                        <input type="date" id="filterDateTo">
+                        <button type="button" class="filter-reset-btn" onclick="resetFilters()"
+                            data-i18n="filter.reset"></button>
+                    </div>
+
+                    <div class="results-count" id="resultsCount"></div>
+
+                    <div class="data-table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="th.date"></th>
+                                    <th data-i18n="th.region"></th>
+                                    <th data-i18n="th.district"></th>
+                                    <th data-i18n="th.hospital"></th>
+                                    <th data-i18n="th.category"></th>
+                                    <th data-i18n="th.rating"></th>
+                                    <th data-i18n="th.sentiment"></th>
+                                    <th data-i18n="th.priority"></th>
+                                    <th data-i18n="th.actionsCol"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="feedbackTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-state" id="feedbackEmptyState" hidden data-i18n="common.noResults"></div>
+                </div>
+
+                <div class="tab-panel" id="tab-analytics">
+                    <div class="panel-card">
+                        <h3 data-i18n="analytics.byCategory"></h3>
+                        <div id="analyticsCategoryBars"></div>
+                    </div>
+                    <div class="panel-card">
+                        <h3 data-i18n="analytics.ratingDistribution"></h3>
+                        <div id="analyticsRatingBars"></div>
+                    </div>
+                    <div class="panel-card">
+                        <h3 data-i18n="ai.sentimentDistribution"></h3>
+                        <div id="analyticsSentimentBars"></div>
+                    </div>
+                    <div class="panel-card">
+                        <h3 data-i18n="analytics.volumeOverTime"></h3>
+                        <div id="analyticsVolumeBars"></div>
+                    </div>
+                    <div class="panel-card">
+                        <h3 data-i18n="analytics.mostFrequentIssues"></h3>
+                        <ul class="insight-list" id="analyticsFrequentList"></ul>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="tab-ai">
+                    <div class="ai-disclaimer" data-i18n="ai.disclaimerBanner"></div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="ai.summaryTitle"></h3>
+                        <p id="aiOverallSummary"></p>
+                    </div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="ai.mostCommonIssue"></h3>
+                        <div id="aiTopIssue"></div>
+                    </div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="ai.categoryBreakdown"></h3>
+                        <div id="aiCategoryBars"></div>
+                    </div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="ai.sentimentDistribution"></h3>
+                        <div id="aiSentimentBars"></div>
+                    </div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="ai.highPriorityIssues"></h3>
+                        <ul class="insight-list" id="aiHighPriorityList"></ul>
+                    </div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="ai.recurringComplaints"></h3>
+                        <ul class="insight-list" id="aiRecurringList"></ul>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="tab-trends">
+                    <div class="trend-grid">
+                        <div class="panel-card trend-card">
+                            <h3 data-i18n="trends.volume"></h3>
+                            <div class="trend-periods">
+                                <span id="trendVolumePrev"></span>
+                                <span id="trendVolumeCurr"></span>
+                            </div>
+                            <div class="trend-delta" id="trendVolumeDelta"></div>
+                        </div>
+                        <div class="panel-card trend-card">
+                            <h3 data-i18n="trends.avgRating"></h3>
+                            <div class="trend-periods">
+                                <span id="trendRatingPrev"></span>
+                                <span id="trendRatingCurr"></span>
+                            </div>
+                            <div class="trend-delta" id="trendRatingDelta"></div>
+                        </div>
+                        <div class="panel-card trend-card">
+                            <h3 data-i18n="trends.negativePct"></h3>
+                            <div class="trend-periods">
+                                <span id="trendNegPrev"></span>
+                                <span id="trendNegCurr"></span>
+                            </div>
+                            <div class="trend-delta" id="trendNegDelta"></div>
+                        </div>
+                    </div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="trends.categoryFrequency"></h3>
+                        <div id="trendCategoryTable"></div>
+                    </div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="analytics.volumeOverTime"></h3>
+                        <div id="trendVolumeBars"></div>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="tab-actions">
+                    <div class="panel-card">
+                        <h3 data-i18n="actions.addNew"></h3>
+                        <div class="action-form">
+                            <div>
+                                <label for="actionCategory" data-i18n="actions.issueCategory"></label>
+                                <select id="actionCategory"></select>
+                            </div>
+                            <div>
+                                <label for="actionStatus" data-i18n="actions.status"></label>
+                                <select id="actionStatus">
+                                    <option value="planned" data-i18n="status.planned"></option>
+                                    <option value="in-progress" data-i18n="status.inProgress"></option>
+                                    <option value="implemented" data-i18n="status.implemented"></option>
+                                </select>
+                            </div>
+                            <div class="full">
+                                <label for="actionDescription" data-i18n="actions.description"></label>
+                                <textarea id="actionDescription"
+                                    data-i18n-placeholder="actions.descriptionPh"></textarea>
+                            </div>
+                            <div>
+                                <label for="actionDate" data-i18n="actions.date"></label>
+                                <input type="date" id="actionDate">
+                            </div>
+                        </div>
+                        <div class="form-error" id="actionError" role="alert" hidden></div>
+                        <button type="button" class="primary-btn" onclick="saveAction()"
+                            data-i18n="common.save"></button>
+                    </div>
+
+                    <div class="panel-card">
+                        <h3 data-i18n="actions.existing"></h3>
+                        <div id="actionsList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="feedbackModal">
+        <div class="modal-card">
+            <h3 data-i18n="detail.title"></h3>
+            <div class="detail-row"><span class="detail-label" data-i18n="th.date"></span><span class="detail-value"
+                    id="detailDate"></span></div>
+            <div class="detail-row"><span class="detail-label" data-i18n="th.region"></span><span class="detail-value"
+                    id="detailRegion"></span></div>
+            <div class="detail-row"><span class="detail-label" data-i18n="th.district"></span><span class="detail-value"
+                    id="detailDistrict"></span></div>
+            <div class="detail-row"><span class="detail-label" data-i18n="th.hospital"></span><span class="detail-value"
+                    id="detailHospital"></span></div>
+            <div class="detail-row"><span class="detail-label" data-i18n="th.category"></span><span class="detail-value"
+                    id="detailCategory"></span></div>
+            <div class="detail-row"><span class="detail-label" data-i18n="th.rating"></span><span class="detail-value"
+                    id="detailRating"></span></div>
+            <div class="detail-text-block" id="detailText"></div>
+
+            <div class="panel-card" style="margin-top:18px; box-shadow:none;">
+                <h3 data-i18n="detail.aiSection"></h3>
+                <div class="detail-row"><span class="detail-label" data-i18n="detail.aiCategory"></span><span
+                        class="detail-value" id="detailAiCategory"></span></div>
+                <div class="detail-row"><span class="detail-label" data-i18n="detail.aiSentiment"></span><span
+                        class="detail-value" id="detailAiSentiment"></span></div>
+                <div class="detail-row"><span class="detail-label" data-i18n="detail.aiPriority"></span><span
+                        class="detail-value" id="detailAiPriority"></span></div>
+                <div class="detail-text-block" id="detailAiSummary"></div>
+                <div class="ai-disclaimer" style="margin-top:14px; margin-bottom:0;" data-i18n="detail.disclaimer">
+                </div>
+            </div>
+
+            <button type="button" class="secondary-btn modal-close-btn" onclick="closeFeedbackModal()"
+                data-i18n="common.close"></button>
+        </div>
+    </div>
+
+    <script>
+        /* =====================================================
+           TRANSLATIONS (centralized)
+           To add UI text later (e.g. hospital dashboard):
+           add the same key to uz, ru and en, then use
+           data-i18n="key" in HTML or t("key") in JavaScript.
+           ===================================================== */
+        const translations = {
+            uz: {
+                "meta.title": "AnonBack — Anonim fikr. Yaxshiroq tibbiyot.",
+                "nav.language": "Til",
+                "nav.providers": "Tibbiyot muassasalari uchun",
+                "common.back": "Orqaga",
+                "common.backHome": "Bosh sahifaga qaytish",
+
+                "hero.badge": "Anonim tibbiy fikr-mulohazalar",
+                "hero.title1": "Anonim fikr.",
+                "hero.title2": "Yaxshiroq tibbiyot.",
+                "hero.desc": "Ro'yxatdan o'tmasdan tibbiy xizmat bo'yicha tajribangizni ulashing. Sizning fikringiz tibbiyot muassasalariga nimalarni yaxshilash kerakligini tushunishga yordam beradi.",
+                "hero.cta": "Fikr bildirish",
+                "hero.how": "Qanday ishlaydi",
+                "hero.trust": "Akkaunt yo'q. Ism yo'q. Ortiqcha shaxsiy ma'lumotlar yo'q.",
+
+                "fb.badge": "Anonim fikr",
+                "fb.title": "Tajribangiz qanday bo'ldi?",
+                "fb.subtitle": "Nima bo'lganini bizga aytib bering. Shaxsingizni ko'rsatish shart emas.",
+                "fb.hospital": "Shifoxona nomi",
+                "fb.hospitalPh": "Shifoxona nomini kiriting",
+                "fb.errorHospital": "Shifoxona nomini kiriting.",
+                "fb.region": "Hudud",
+                "fb.regionPh": "Hududni tanlang",
+                "fb.district": "Tuman yoki shahar",
+                "fb.districtPh": "Tuman yoki shaharni tanlang",
+                "fb.districtPhDisabled": "Avval hududni tanlang",
+                "fb.text": "Nima bo'ldi?",
+                "fb.textPh": "Tibbiy xizmat bo'yicha tajribangiz haqida yozing...",
+                "fb.category": "Toifa",
+                "fb.categoryPh": "Toifani tanlang",
+                "fb.rating": "Tajribangizni qanday baholaysiz?",
+                "fb.ratingTitle": "Baho: {n} / 5",
+                "fb.submit": "Anonim yuborish",
+                "fb.errorIncomplete": "Yuborishdan oldin barcha maydonlarni to'ldiring.",
+
+                "cat.waitingTime": "Kutish vaqti",
+                "cat.staffCommunication": "Xodimlar bilan muloqot",
+                "cat.registration": "Ro'yxatga olish",
+                "cat.cleanliness": "Tozalik",
+                "cat.doctorExperience": "Shifokor bilan tajriba",
+                "cat.other": "Boshqa",
+
+                "conf.badge": "Fikr qabul qilindi",
+                "conf.title": "Fikringiz uchun rahmat.",
+                "conf.desc": "Fikringiz anonim tarzda yuborildi va tibbiyot muassasalariga nimalarni yaxshilash kerakligini tushunishga yordam beradi.",
+
+                "how.badge": "Qanday ishlaydi",
+                "how.title": "Oddiy. Anonim. Foydali.",
+                "how.intro": "AnonBack bemorlarga tibbiy xizmat bo'yicha tajribasini ro'yxatdan o'tmasdan ulashishni osonlashtiradi.",
+                "how.s1t": "Tajribangizni ulashing",
+                "how.s1d": "Shifoxonani tanlang va nima bo'lganini yozing.",
+                "how.s2t": "Anonim yuboring",
+                "how.s2d": "Akkaunt, ism, telefon raqami yoki boshqa ortiqcha shaxsiy ma'lumotlar talab qilinmaydi.",
+                "how.s3t": "Sun'iy intellekt fikrlarni tahlil qiladi",
+                "how.s3d": "Fikrlar toifalarni, asosiy muammolarni va takrorlanuvchi tendensiyalarni aniqlash uchun tahlil qilinishi mumkin.",
+                "how.s4t": "Tibbiyot muassasalari xulosa chiqaradi",
+                "how.s4d": "Umumlashtirilgan tahlillar muassasalarga nimalarga e'tibor berish va nimalarni yaxshilash kerakligini tushunishga yordam beradi.",
+
+                "common.logout": "Chiqish",
+                "common.save": "Saqlash",
+                "common.close": "Yopish",
+                "common.demoDataBadge": "Demo ma'lumotlari",
+                "common.notEnoughData": "Hozircha yetarli ma'lumot yo'q.",
+                "common.all": "Barchasi",
+                "common.noResults": "Hech qanday fikr topilmadi.",
+
+                "login.badge": "Tibbiyot muassasalari uchun kirish",
+                "login.title": "Provayder tizimiga kirish",
+                "login.subtitle": "Bu faqat namoyish uchun sinov autentifikatsiyasi.",
+                "login.email": "Elektron pochta",
+                "login.emailPh": "provider@anonback.uz",
+                "login.password": "Parol",
+                "login.passwordPh": "Parolni kiriting",
+                "login.signIn": "Kirish",
+                "login.backToAnonback": "AnonBack'ga qaytish",
+                "login.prototypeNotice": "Bu — namoyish uchun sinov tizimiga kirish. Bu ishlab chiqarish darajasidagi xavfsizlikni bildirmaydi.",
+                "login.demoHint": "Demo hisob: provider@anonback.uz / Demo1234",
+                "login.errorIncomplete": "Elektron pochta va parolni kiriting.",
+                "login.errorInvalid": "Elektron pochta yoki parol noto'g'ri.",
+
+                "dash.title": "Tibbiyot muassasasi paneli",
+                "dash.tabOverview": "Umumiy ko'rinish",
+                "dash.tabFeedback": "Fikrlar",
+                "dash.tabAnalytics": "Analitika",
+                "dash.tabAI": "Sun'iy intellekt tahlili",
+                "dash.tabTrends": "Tendensiyalar",
+                "dash.tabActions": "Chora-tadbirlar",
+
+                "stat.total": "Jami fikrlar",
+                "stat.avgRating": "O'rtacha baho",
+                "stat.positive": "Ijobiy fikrlar",
+                "stat.negative": "Salbiy fikrlar",
+                "stat.highPriority": "Yuqori muhimlikdagi muammolar",
+
+                "sentiment.positive": "Ijobiy",
+                "sentiment.neutral": "Neytral",
+                "sentiment.negative": "Salbiy",
+
+                "priority.high": "Yuqori",
+                "priority.medium": "O'rta",
+                "priority.low": "Past",
+
+                "status.planned": "Rejalashtirilgan",
+                "status.inProgress": "Jarayonda",
+                "status.implemented": "Amalga oshirilgan",
+
+                "filter.search": "Shifoxona yoki fikr matnini qidirish...",
+                "filter.rating": "Baho",
+                "filter.sentiment": "Kayfiyat",
+                "filter.dateFrom": "Sanadan",
+                "filter.dateTo": "Sanagacha",
+                "filter.reset": "Filtrlarni tozalash",
+                "filter.resultsCount": "{n} ta fikr topildi",
+
+                "th.date": "Sana",
+                "th.region": "Hudud",
+                "th.district": "Tuman",
+                "th.hospital": "Shifoxona",
+                "th.category": "Toifa",
+                "th.rating": "Baho",
+                "th.sentiment": "Kayfiyat",
+                "th.priority": "Muhimlik",
+                "th.actionsCol": "Batafsil",
+
+                "detail.title": "Fikr tafsilotlari",
+                "detail.aiSection": "Sun'iy intellekt tahlili",
+                "detail.aiCategory": "Toifa",
+                "detail.aiSentiment": "Kayfiyat",
+                "detail.aiPriority": "Muhimlik",
+                "detail.disclaimer": "Sun'iy intellekt tahlili tibbiy xizmat haqidagi fikrlarni tahlil qiladi. Bu tibbiy tashxis yoki klinik maslahat emas.",
+
+                "ai.disclaimerBanner": "Sun'iy intellekt tahlili tibbiy xizmat haqidagi fikrlarni tahlil qiladi. Bu tibbiy tashxis yoki klinik maslahat emas.",
+                "ai.mostCommonIssue": "Eng ko'p uchraydigan muammo",
+                "ai.categoryBreakdown": "Toifalar bo'yicha taqsimot",
+                "ai.sentimentDistribution": "Kayfiyat taqsimoti",
+                "ai.highPriorityIssues": "Yuqori muhimlikdagi muammolar",
+                "ai.recurringComplaints": "Takrorlanuvchi shikoyatlar",
+                "ai.summaryTitle": "Sun'iy intellekt tomonidan yaratilgan xulosa",
+                "ai.summaryTemplate": "{category} bo'yicha {sentiment} fikr.",
+                "ai.overallSummary": "Jami {total} ta fikrdan {pct}% salbiy bo'lib, ular ko'proq \"{category}\" toifasiga tegishli edi.",
+                "ai.overallSummaryEmpty": "Tahlil qilish uchun hali fikrlar mavjud emas.",
+
+                "analytics.byCategory": "Toifalar bo'yicha fikrlar",
+                "analytics.ratingDistribution": "Baholar taqsimoti",
+                "analytics.volumeOverTime": "Vaqt bo'yicha fikrlar hajmi",
+                "analytics.mostFrequentIssues": "Eng ko'p uchraydigan muammolar",
+
+                "trends.volume": "Fikrlar hajmi",
+                "trends.avgRating": "O'rtacha baho",
+                "trends.negativePct": "Salbiy fikrlar ulushi",
+                "trends.categoryFrequency": "Toifalar bo'yicha chastota o'zgarishi",
+                "trends.last30": "So'nggi 30 kun",
+                "trends.previous30": "Oldingi 30 kun",
+                "trends.vsPrevious": "oldingi davrga nisbatan",
+
+                "actions.addNew": "Yangi chora qo'shish",
+                "actions.issueCategory": "Muammo toifasi",
+                "actions.description": "Tavsif",
+                "actions.descriptionPh": "Ko'rilgan chorani tavsiflang...",
+                "actions.status": "Holat",
+                "actions.date": "Sana",
+                "actions.existing": "Qayd etilgan chora-tadbirlar",
+                "actions.empty": "Hali chora-tadbirlar qayd etilmagan.",
+                "actions.errorIncomplete": "Saqlashdan oldin barcha maydonlarni to'ldiring.",
+                "actions.correlationDecrease": "Ushbu chora amalga oshirilgandan so'ng \"{category}\" bo'yicha salbiy fikrlar sonining kamayishi kuzatildi.",
+                "actions.correlationNoDecrease": "Ushbu chora amalga oshirilgandan so'ng \"{category}\" bo'yicha salbiy fikrlar sonining kamayishi kuzatilmadi."
+
+            },
+
+            ru: {
+                "meta.title": "AnonBack — Анонимный отзыв. Лучшая медицина.",
+                "nav.language": "Язык",
+                "nav.providers": "Для медицинских организаций",
+                "common.back": "Назад",
+                "common.backHome": "На главную",
+
+                "hero.badge": "Анонимные отзывы о здравоохранении",
+                "hero.title1": "Анонимный отзыв.",
+                "hero.title2": "Лучшая медицина.",
+                "hero.desc": "Поделитесь опытом обращения за медицинской помощью без регистрации. Ваш отзыв помогает медицинским организациям понять, что необходимо улучшить.",
+                "hero.cta": "Оставить отзыв",
+                "hero.how": "Как это работает",
+                "hero.trust": "Без аккаунта. Без имени. Без лишних персональных данных.",
+
+                "fb.badge": "Анонимный отзыв",
+                "fb.title": "Как прошёл ваш визит?",
+                "fb.subtitle": "Расскажите, что произошло. Указывать личные данные не нужно.",
+                "fb.hospital": "Название больницы",
+                "fb.hospitalPh": "Введите название больницы",
+                "fb.errorHospital": "Пожалуйста, введите название больницы.",
+                "fb.region": "Регион",
+                "fb.regionPh": "Выберите регион",
+                "fb.district": "Район или город",
+                "fb.districtPh": "Выберите район или город",
+                "fb.districtPhDisabled": "Сначала выберите регион",
+                "fb.text": "Что произошло?",
+                "fb.textPh": "Расскажите о вашем опыте обращения за медицинской помощью...",
+                "fb.category": "Категория",
+                "fb.categoryPh": "Выберите категорию",
+                "fb.rating": "Как бы вы оценили свой опыт?",
+                "fb.ratingTitle": "Оценка: {n} из 5",
+                "fb.submit": "Отправить анонимно",
+                "fb.errorIncomplete": "Пожалуйста, заполните все поля перед отправкой.",
+
+
+                "cat.waitingTime": "Время ожидания",
+                "cat.staffCommunication": "Общение с персоналом",
+                "cat.registration": "Регистратура",
+                "cat.cleanliness": "Чистота",
+                "cat.doctorExperience": "Работа врача",
+                "cat.other": "Другое",
+
+                "conf.badge": "Отзыв получен",
+                "conf.title": "Спасибо за ваш отзыв.",
+                "conf.desc": "Ваш отзыв отправлен анонимно и поможет медицинским организациям понять, что необходимо улучшить.",
+
+                "how.badge": "Как это работает",
+                "how.title": "Просто. Анонимно. Полезно.",
+                "how.intro": "AnonBack позволяет пациентам легко поделиться опытом обращения за медицинской помощью без регистрации.",
+                "how.s1t": "Поделитесь своим опытом",
+                "how.s1d": "Выберите больницу и расскажите, что произошло.",
+                "how.s2t": "Отправьте анонимно",
+                "how.s2d": "Не требуются аккаунт, имя, номер телефона или другие лишние персональные данные.",
+                "how.s3t": "ИИ анализирует отзывы",
+                "how.s3d": "Отзывы могут анализироваться, чтобы выявлять категории, ключевые проблемы и повторяющиеся тенденции.",
+                "how.s4t": "Медицинские организации делают выводы",
+                "how.s4d": "Обобщённая аналитика помогает организациям понять, чему нужно уделить внимание и что улучшить.",
+
+                "common.logout": "Выйти",
+                "common.save": "Сохранить",
+                "common.close": "Закрыть",
+                "common.demoDataBadge": "Демо-данные",
+                "common.notEnoughData": "Пока недостаточно данных.",
+                "common.all": "Все",
+                "common.noResults": "Отзывы не найдены.",
+
+                "login.badge": "Доступ для медицинских организаций",
+                "login.title": "Вход для провайдера",
+                "login.subtitle": "Это тестовая авторизация только для демонстрации.",
+                "login.email": "Электронная почта",
+                "login.emailPh": "provider@anonback.uz",
+                "login.password": "Пароль",
+                "login.passwordPh": "Введите пароль",
+                "login.signIn": "Войти",
+                "login.backToAnonback": "Вернуться в AnonBack",
+                "login.prototypeNotice": "Это прототип входа для демонстрации. Он не представляет собой систему безопасности промышленного уровня.",
+                "login.demoHint": "Демо-доступ: provider@anonback.uz / Demo1234",
+                "login.errorIncomplete": "Введите электронную почту и пароль.",
+                "login.errorInvalid": "Неверная электронная почта или пароль.",
+
+                "dash.title": "Панель медицинской организации",
+                "dash.tabOverview": "Обзор",
+                "dash.tabFeedback": "Отзывы",
+                "dash.tabAnalytics": "Аналитика",
+                "dash.tabAI": "ИИ-анализ",
+                "dash.tabTrends": "Тенденции",
+                "dash.tabActions": "Меры",
+
+                "stat.total": "Всего отзывов",
+                "stat.avgRating": "Средняя оценка",
+                "stat.positive": "Положительные отзывы",
+                "stat.negative": "Отрицательные отзывы",
+                "stat.highPriority": "Проблемы высокого приоритета",
+
+                "sentiment.positive": "Положительный",
+                "sentiment.neutral": "Нейтральный",
+                "sentiment.negative": "Отрицательный",
+
+                "priority.high": "Высокий",
+                "priority.medium": "Средний",
+                "priority.low": "Низкий",
+
+                "status.planned": "Запланировано",
+                "status.inProgress": "В процессе",
+                "status.implemented": "Внедрено",
+
+                "filter.search": "Поиск по больнице или тексту отзыва...",
+                "filter.rating": "Оценка",
+                "filter.sentiment": "Тональность",
+                "filter.dateFrom": "С даты",
+                "filter.dateTo": "По дату",
+                "filter.reset": "Сбросить фильтры",
+                "filter.resultsCount": "Найдено отзывов: {n}",
+
+                "th.date": "Дата",
+                "th.region": "Регион",
+                "th.district": "Район",
+                "th.hospital": "Больница",
+                "th.category": "Категория",
+                "th.rating": "Оценка",
+                "th.sentiment": "Тональность",
+                "th.priority": "Приоритет",
+                "th.actionsCol": "Подробнее",
+
+                "detail.title": "Детали отзыва",
+                "detail.aiSection": "ИИ-анализ",
+                "detail.aiCategory": "Категория",
+                "detail.aiSentiment": "Тональность",
+                "detail.aiPriority": "Приоритет",
+                "detail.disclaimer": "ИИ-анализ анализирует отзывы о качестве медицинских услуг. Это не медицинский диагноз и не клиническая рекомендация.",
+
+                "ai.disclaimerBanner": "ИИ-анализ анализирует отзывы о качестве медицинских услуг. Это не медицинский диагноз и не клиническая рекомендация.",
+                "ai.mostCommonIssue": "Наиболее частая проблема",
+                "ai.categoryBreakdown": "Распределение по категориям",
+                "ai.sentimentDistribution": "Распределение тональности",
+                "ai.highPriorityIssues": "Проблемы высокого приоритета",
+                "ai.recurringComplaints": "Повторяющиеся жалобы",
+                "ai.summaryTitle": "Сводка, сформированная ИИ",
+                "ai.summaryTemplate": "{sentiment} отзыв, связанный с категорией «{category}».",
+                "ai.overallSummary": "Из {total} отзывов {pct}% были отрицательными, чаще всего связанными с категорией «{category}».",
+                "ai.overallSummaryEmpty": "Пока нет отзывов для анализа.",
+
+                "analytics.byCategory": "Отзывы по категориям",
+                "analytics.ratingDistribution": "Распределение оценок",
+                "analytics.volumeOverTime": "Объём отзывов по времени",
+                "analytics.mostFrequentIssues": "Наиболее частые проблемы",
+
+                "trends.volume": "Объём отзывов",
+                "trends.avgRating": "Средняя оценка",
+                "trends.negativePct": "Доля отрицательных отзывов",
+                "trends.categoryFrequency": "Изменение частоты по категориям",
+                "trends.last30": "Последние 30 дней",
+                "trends.previous30": "Предыдущие 30 дней",
+                "trends.vsPrevious": "по сравнению с предыдущим периодом",
+
+                "actions.addNew": "Добавить меру",
+                "actions.issueCategory": "Категория проблемы",
+                "actions.description": "Описание",
+                "actions.descriptionPh": "Опишите принятую меру...",
+                "actions.status": "Статус",
+                "actions.date": "Дата",
+                "actions.existing": "Зафиксированные меры",
+                "actions.empty": "Пока не зафиксировано ни одной меры.",
+                "actions.errorIncomplete": "Пожалуйста, заполните все поля перед сохранением.",
+                "actions.correlationDecrease": "После этой меры было замечено снижение числа отрицательных отзывов по категории «{category}».",
+                "actions.correlationNoDecrease": "После этой меры снижение числа отрицательных отзывов по категории «{category}» не было замечено."
+
+            },
+
+            en: {
+                "meta.title": "AnonBack — Anonymous Feedback. Better Healthcare.",
+                "nav.language": "Language",
+                "nav.providers": "For Healthcare Providers",
+                "common.back": "Back",
+                "common.backHome": "Back to Home",
+
+                "hero.badge": "Anonymous Healthcare Feedback",
+                "hero.title1": "Anonymous Feedback.",
+                "hero.title2": "Better Healthcare.",
+                "hero.desc": "Share your healthcare experience without creating an account. Your feedback helps healthcare providers understand what needs to improve.",
+                "hero.cta": "Give Feedback",
+                "hero.how": "How It Works",
+                "hero.trust": "No account. No name. No unnecessary personal information.",
+
+                "fb.badge": "Anonymous Feedback",
+                "fb.title": "How was your experience?",
+                "fb.subtitle": "Tell us what happened. Your identity is not required.",
+                "fb.hospital": "Hospital Name",
+                "fb.hospitalPh": "Enter hospital name",
+                "fb.errorHospital": "Please enter the hospital name.",
+                "fb.region": "Region",
+                "fb.regionPh": "Select region",
+                "fb.district": "District or city",
+                "fb.districtPh": "Select district or city",
+                "fb.districtPhDisabled": "Select a region first",
+                "fb.text": "What happened?",
+                "fb.textPh": "Tell us about your healthcare experience...",
+                "fb.category": "Category",
+                "fb.categoryPh": "Select category",
+                "fb.rating": "How would you rate your experience?",
+                "fb.ratingTitle": "Rating: {n} out of 5",
+                "fb.submit": "Submit Anonymously",
+                "fb.errorIncomplete": "Please complete all fields before submitting.",
+
+
+                "cat.waitingTime": "Waiting Time",
+                "cat.staffCommunication": "Staff Communication",
+                "cat.registration": "Registration",
+                "cat.cleanliness": "Cleanliness",
+                "cat.doctorExperience": "Doctor Experience",
+                "cat.other": "Other",
+
+                "conf.badge": "Feedback Received",
+                "conf.title": "Thank you for your feedback.",
+                "conf.desc": "Your feedback has been submitted anonymously and can help healthcare providers understand what needs to improve.",
+
+                "how.badge": "How It Works",
+                "how.title": "Simple. Anonymous. Useful.",
+                "how.intro": "AnonBack makes it easy for patients to share their healthcare experience without creating an account.",
+                "how.s1t": "Share Your Experience",
+                "how.s1d": "Choose a hospital and tell us what happened.",
+                "how.s2t": "Submit Anonymously",
+                "how.s2d": "No account, name, phone number, or unnecessary personal information is required.",
+                "how.s3t": "AI Analyzes Feedback",
+                "how.s3d": "Feedback can be analyzed to identify categories, key issues, and recurring trends.",
+                "how.s4t": "Healthcare Providers Learn",
+                "how.s4d": "Aggregated insights can help providers understand what needs attention and improvement.",
+
+                "common.logout": "Log Out",
+                "common.save": "Save",
+                "common.close": "Close",
+                "common.demoDataBadge": "Demo Data",
+                "common.notEnoughData": "Not enough data yet.",
+                "common.all": "All",
+                "common.noResults": "No feedback found.",
+
+                "login.badge": "Healthcare Provider Access",
+                "login.title": "Provider Sign In",
+                "login.subtitle": "This is prototype authentication for demonstration only.",
+                "login.email": "Email",
+                "login.emailPh": "provider@anonback.uz",
+                "login.password": "Password",
+                "login.passwordPh": "Enter password",
+                "login.signIn": "Sign In",
+                "login.backToAnonback": "Back to AnonBack",
+                "login.prototypeNotice": "This is a prototype login for demonstration purposes. It does not represent production-level security.",
+                "login.demoHint": "Demo credentials: provider@anonback.uz / Demo1234",
+                "login.errorIncomplete": "Please enter email and password.",
+                "login.errorInvalid": "Invalid email or password.",
+
+                "dash.title": "Healthcare Provider Dashboard",
+                "dash.tabOverview": "Overview",
+                "dash.tabFeedback": "Feedback",
+                "dash.tabAnalytics": "Analytics",
+                "dash.tabAI": "AI Insights",
+                "dash.tabTrends": "Trends",
+                "dash.tabActions": "Actions",
+
+                "stat.total": "Total Feedback",
+                "stat.avgRating": "Average Rating",
+                "stat.positive": "Positive Feedback",
+                "stat.negative": "Negative Feedback",
+                "stat.highPriority": "High-Priority Issues",
+
+                "sentiment.positive": "Positive",
+                "sentiment.neutral": "Neutral",
+                "sentiment.negative": "Negative",
+
+                "priority.high": "High",
+                "priority.medium": "Medium",
+                "priority.low": "Low",
+
+                "status.planned": "Planned",
+                "status.inProgress": "In Progress",
+                "status.implemented": "Implemented",
+
+                "filter.search": "Search hospital or feedback text...",
+                "filter.rating": "Rating",
+                "filter.sentiment": "Sentiment",
+                "filter.dateFrom": "From date",
+                "filter.dateTo": "To date",
+                "filter.reset": "Reset Filters",
+                "filter.resultsCount": "{n} feedback items found",
+
+                "th.date": "Date",
+                "th.region": "Region",
+                "th.district": "District",
+                "th.hospital": "Hospital",
+                "th.category": "Category",
+                "th.rating": "Rating",
+                "th.sentiment": "Sentiment",
+                "th.priority": "Priority",
+                "th.actionsCol": "Details",
+
+                "detail.title": "Feedback Details",
+                "detail.aiSection": "AI Analysis",
+                "detail.aiCategory": "Category",
+                "detail.aiSentiment": "Sentiment",
+                "detail.aiPriority": "Priority",
+                "detail.disclaimer": "AI insights analyze healthcare service feedback. They are not medical diagnoses or clinical advice.",
+
+                "ai.disclaimerBanner": "AI insights analyze healthcare service feedback. They are not medical diagnoses or clinical advice.",
+                "ai.mostCommonIssue": "Most Common Issue",
+                "ai.categoryBreakdown": "Feedback by Category",
+                "ai.sentimentDistribution": "Sentiment Distribution",
+                "ai.highPriorityIssues": "High-Priority Issues",
+                "ai.recurringComplaints": "Recurring Complaints",
+                "ai.summaryTitle": "AI-Generated Summary",
+                "ai.summaryTemplate": "{sentiment} feedback related to {category}.",
+                "ai.overallSummary": "Out of {total} feedback items, {pct}% were negative, most commonly related to {category}.",
+                "ai.overallSummaryEmpty": "No feedback available to analyze yet.",
+
+                "analytics.byCategory": "Feedback by Category",
+                "analytics.ratingDistribution": "Rating Distribution",
+                "analytics.volumeOverTime": "Feedback Volume Over Time",
+                "analytics.mostFrequentIssues": "Most Frequent Issues",
+
+                "trends.volume": "Feedback Volume",
+                "trends.avgRating": "Average Rating",
+                "trends.negativePct": "Negative Feedback %",
+                "trends.categoryFrequency": "Issue Frequency by Category",
+                "trends.last30": "Last 30 Days",
+                "trends.previous30": "Previous 30 Days",
+                "trends.vsPrevious": "vs previous period",
+
+                "actions.addNew": "Add Action",
+                "actions.issueCategory": "Issue Category",
+                "actions.description": "Description",
+                "actions.descriptionPh": "Describe the action taken...",
+                "actions.status": "Status",
+                "actions.date": "Date",
+                "actions.existing": "Recorded Actions",
+                "actions.empty": "No actions recorded yet.",
+                "actions.errorIncomplete": "Please complete all fields before saving.",
+                "actions.correlationDecrease": "A decrease in reported {category} complaints was observed after this action.",
+                "actions.correlationNoDecrease": "No decrease in reported {category} complaints was observed after this action."
+
+            }
+        };
+
+        /* =====================================================
+           LOCATIONS (centralized, stable IDs, localized names)
+           Region -> districts (tumans) and cities of regional
+           subordination. Selection is stored by ID, so switching
+           language never invalidates it.
+           ===================================================== */
+        function slug(text) {
+            return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+        }
+
+        // District (tuman): uz name, ru adjective, en name
+        function D(uz, ru, en) {
+            return {
+                id: slug(en) + "-district",
+                name: {uz: uz + " tumani", ru: ru + " район", en: en + " District"},
+                sort: {uz: uz, ru: ru, en: en}
+            };
+        }
+
+        // City (shahar): uz name, ru name, en name
+        function C(uz, ru, en) {
+            return {
+                id: slug(en) + "-city",
+                name: {uz: uz + " shahri", ru: "город " + ru, en: en + " City"},
+                sort: {uz: uz, ru: ru, en: en}
+            };
+        }
+
+        function R(id, uz, ru, en, districts) {
+            return {id: id, name: {uz: uz, ru: ru, en: en}, districts: districts};
+        }
+
+        const locations = {
+            pinned: ["tashkent-city", "tashkent-region"],
+            regions: [
+                R("tashkent-city", "Toshkent shahri", "город Ташкент", "Tashkent City", [
+                    D("Bektemir", "Бектемирский", "Bektemir"),
+                    D("Chilonzor", "Чиланзарский", "Chilanzar"),
+                    D("Mirobod", "Мирабадский", "Mirabad"),
+                    D("Mirzo Ulug'bek", "Мирзо-Улугбекский", "Mirzo Ulugbek"),
+                    D("Olmazor", "Алмазарский", "Almazar"),
+                    D("Sergeli", "Сергелийский", "Sergeli"),
+                    D("Shayxontohur", "Шайхантахурский", "Shaykhantakhur"),
+                    D("Uchtepa", "Учтепинский", "Uchtepa"),
+                    D("Yakkasaroy", "Яккасарайский", "Yakkasaray"),
+                    D("Yangihayot", "Янгихаётский", "Yangihayot"),
+                    D("Yashnobod", "Яшнабадский", "Yashnabad"),
+                    D("Yunusobod", "Юнусабадский", "Yunusabad")
+                ]),
+                R("tashkent-region", "Toshkent viloyati", "Ташкентская область", "Tashkent Region", [
+                    C("Nurafshon", "Нурафшан", "Nurafshon"),
+                    C("Olmaliq", "Алмалык", "Almalyk"),
+                    C("Angren", "Ангрен", "Angren"),
+                    C("Bekobod", "Бекабад", "Bekabad"),
+                    C("Chirchiq", "Чирчик", "Chirchiq"),
+                    C("Ohangaron", "Ахангаран", "Akhangaran"),
+                    C("Yangiyo'l", "Янгиюль", "Yangiyul"),
+                    D("Bekobod", "Бекабадский", "Bekabad"),
+                    D("Bo'ka", "Букинский", "Boka"),
+                    D("Bo'stonliq", "Бостанлыкский", "Bostanlyk"),
+                    D("Chinoz", "Чиназский", "Chinaz"),
+                    D("Qibray", "Кибрайский", "Kibray"),
+                    D("Ohangaron", "Ахангаранский", "Akhangaran"),
+                    D("Oqqo'rg'on", "Аккурганский", "Akkurgan"),
+                    D("Parkent", "Паркентский", "Parkent"),
+                    D("Piskent", "Пскентский", "Pskent"),
+                    D("Quyi Chirchiq", "Нижнечирчикский", "Lower Chirchiq"),
+                    D("O'rta Chirchiq", "Среднечирчикский", "Middle Chirchiq"),
+                    D("Yuqori Chirchiq", "Верхнечирчикский", "Upper Chirchiq"),
+                    D("Yangiyo'l", "Янгиюльский", "Yangiyul"),
+                    D("Zangiota", "Зангиатинский", "Zangiata"),
+                    D("Toshkent", "Ташкентский", "Tashkent")
+                ]),
+                R("karakalpakstan", "Qoraqalpog'iston Respublikasi", "Республика Каракалпакстан", "Republic of Karakalpakstan", [
+                    C("Nukus", "Нукус", "Nukus"),
+                    D("Amudaryo", "Амударьинский", "Amudarya"),
+                    D("Beruniy", "Берунийский", "Beruniy"),
+                    D("Bo'zatov", "Бозатауский", "Bozatau"),
+                    D("Chimboy", "Чимбайский", "Chimbay"),
+                    D("Ellikqal'a", "Эллик-Калинский", "Ellikkala"),
+                    D("Kegeyli", "Кегейлийский", "Kegeyli"),
+                    D("Mo'ynoq", "Муйнакский", "Muynak"),
+                    D("Nukus", "Нукусский", "Nukus"),
+                    D("Qanliko'l", "Канлыкульский", "Kanlykul"),
+                    D("Qo'ng'irot", "Кунградский", "Kungrad"),
+                    D("Qorao'zak", "Караузякский", "Karauzyak"),
+                    D("Shumanay", "Шуманайский", "Shumanay"),
+                    D("Taxiatosh", "Тахиаташский", "Takhiatash"),
+                    D("Taxtako'pir", "Тахтакупырский", "Takhtakupyr"),
+                    D("To'rtko'l", "Турткульский", "Turtkul"),
+                    D("Xo'jayli", "Ходжейлийский", "Khodjeyli")
+                ]),
+                R("andijan", "Andijon viloyati", "Андижанская область", "Andijan Region", [
+                    C("Andijon", "Андижан", "Andijan"),
+                    C("Xonabod", "Ханабад", "Khanabad"),
+                    D("Andijon", "Андижанский", "Andijan"),
+                    D("Asaka", "Асакинский", "Asaka"),
+                    D("Baliqchi", "Балыкчинский", "Balikchi"),
+                    D("Bo'z", "Бозский", "Boz"),
+                    D("Buloqboshi", "Булакбашинский", "Bulakbashi"),
+                    D("Izboskan", "Избасканский", "Izboskan"),
+                    D("Jalaquduq", "Джалакудукский", "Jalakuduk"),
+                    D("Xo'jaobod", "Ходжаабадский", "Khojaobod"),
+                    D("Qo'rg'ontepa", "Кургантепинский", "Kurgantepa"),
+                    D("Marhamat", "Мархаматский", "Marhamat"),
+                    D("Oltinko'l", "Алтынкульский", "Altynkul"),
+                    D("Paxtaobod", "Пахтаабадский", "Pakhtaabad"),
+                    D("Shahrixon", "Шахриханский", "Shakhrikhan"),
+                    D("Ulug'nor", "Улугнорский", "Ulugnor")
+                ]),
+                R("bukhara", "Buxoro viloyati", "Бухарская область", "Bukhara Region", [
+                    C("Buxoro", "Бухара", "Bukhara"),
+                    C("Kogon", "Каган", "Kagan"),
+                    D("Buxoro", "Бухарский", "Bukhara"),
+                    D("G'ijduvon", "Гиждуванский", "Gijduvan"),
+                    D("Jondor", "Жондорский", "Jondor"),
+                    D("Kogon", "Каганский", "Kagan"),
+                    D("Olot", "Алатский", "Olot"),
+                    D("Peshku", "Пешкунский", "Peshku"),
+                    D("Qorako'l", "Каракульский", "Karakul"),
+                    D("Qorovulbozor", "Караулбазарский", "Karaulbazar"),
+                    D("Romitan", "Ромитанский", "Romitan"),
+                    D("Shofirkon", "Шафирканский", "Shafirkan"),
+                    D("Vobkent", "Вабкентский", "Vobkent")
+                ]),
+                R("fergana", "Farg'ona viloyati", "Ферганская область", "Fergana Region", [
+                    C("Farg'ona", "Фергана", "Fergana"),
+                    C("Qo'qon", "Коканд", "Kokand"),
+                    C("Marg'ilon", "Маргилан", "Margilan"),
+                    C("Quvasoy", "Кувасай", "Kuvasay"),
+                    D("Bag'dod", "Багдадский", "Bagdad"),
+                    D("Beshariq", "Бешарыкский", "Besharyk"),
+                    D("Buvayda", "Бувайдинский", "Buvayda"),
+                    D("Dang'ara", "Дангаринский", "Dangara"),
+                    D("Farg'ona", "Ферганский", "Fergana"),
+                    D("Furqat", "Фуркатский", "Furkat"),
+                    D("Oltiariq", "Алтыарыкский", "Altiaryk"),
+                    D("O'zbekiston", "Узбекистанский", "Uzbekistan"),
+                    D("Qo'shtepa", "Куштепинский", "Kushtepa"),
+                    D("Quva", "Кувинский", "Kuva"),
+                    D("Rishton", "Риштанский", "Rishtan"),
+                    D("So'x", "Сохский", "Sokh"),
+                    D("Toshloq", "Ташлакский", "Tashlak"),
+                    D("Uchko'prik", "Учкуприкский", "Uchkuprik"),
+                    D("Yozyovon", "Язъяванский", "Yazyavan")
+                ]),
+                R("jizzakh", "Jizzax viloyati", "Джизакская область", "Jizzakh Region", [
+                    C("Jizzax", "Джизак", "Jizzakh"),
+                    D("Arnasoy", "Арнасайский", "Arnasay"),
+                    D("Baxmal", "Бахмальский", "Bakhmal"),
+                    D("Do'stlik", "Дустликский", "Dustlik"),
+                    D("Forish", "Фаришский", "Farish"),
+                    D("G'allaorol", "Галляаральский", "Gallaaral"),
+                    D("Mirzacho'l", "Мирзачульский", "Mirzachul"),
+                    D("Paxtakor", "Пахтакорский", "Pakhtakor"),
+                    D("Sharof Rashidov", "Шароф-Рашидовский", "Sharof Rashidov"),
+                    D("Yangiobod", "Янгиабадский", "Yangiabad"),
+                    D("Zafarobod", "Зафарабадский", "Zafarabad"),
+                    D("Zarbdor", "Зарбдарский", "Zarbdor"),
+                    D("Zomin", "Зааминский", "Zaamin")
+                ]),
+                R("kashkadarya", "Qashqadaryo viloyati", "Кашкадарьинская область", "Kashkadarya Region", [
+                    C("Qarshi", "Карши", "Karshi"),
+                    C("Shahrisabz", "Шахрисабз", "Shakhrisabz"),
+                    D("Chiroqchi", "Чиракчинский", "Chirakchi"),
+                    D("Dehqonobod", "Дехканабадский", "Dehkanabad"),
+                    D("G'uzor", "Гузарский", "Guzar"),
+                    D("Kasbi", "Касбийский", "Kasbi"),
+                    D("Kitob", "Китабский", "Kitab"),
+                    D("Ko'kdala", "Кукдалинский", "Kokdala"),
+                    D("Koson", "Касанский", "Kasan"),
+                    D("Mirishkor", "Миришкорский", "Mirishkor"),
+                    D("Muborak", "Мубарекский", "Mubarek"),
+                    D("Nishon", "Нишанский", "Nishan"),
+                    D("Qamashi", "Камашинский", "Kamashi"),
+                    D("Qarshi", "Каршинский", "Karshi"),
+                    D("Shahrisabz", "Шахрисабзский", "Shakhrisabz"),
+                    D("Yakkabog'", "Яккабагский", "Yakkabag")
+                ]),
+                R("khorezm", "Xorazm viloyati", "Хорезмская область", "Khorezm Region", [
+                    C("Urganch", "Ургенч", "Urgench"),
+                    C("Xiva", "Хива", "Khiva"),
+                    D("Bog'ot", "Багатский", "Bagat"),
+                    D("Gurlan", "Гурленский", "Gurlan"),
+                    D("Hazorasp", "Хазараспский", "Khazarasp"),
+                    D("Qo'shko'pir", "Кошкупырский", "Koshkupyr"),
+                    D("Shovot", "Шаватский", "Shavat"),
+                    D("Tuproqqal'a", "Тупраккалинский", "Tuprakkala"),
+                    D("Urganch", "Ургенчский", "Urgench"),
+                    D("Xiva", "Хивинский", "Khiva"),
+                    D("Xonqa", "Ханкинский", "Khanka"),
+                    D("Yangiariq", "Янгиарыкский", "Yangiaryk"),
+                    D("Yangibozor", "Янгибазарский", "Yangibazar")
+                ]),
+                R("namangan", "Namangan viloyati", "Наманганская область", "Namangan Region", [
+                    C("Namangan", "Наманган", "Namangan"),
+                    D("Chortoq", "Чартакский", "Chartak"),
+                    D("Chust", "Чустский", "Chust"),
+                    D("Kosonsoy", "Касансайский", "Kasansay"),
+                    D("Mingbuloq", "Мингбулакский", "Mingbulak"),
+                    D("Namangan", "Наманганский", "Namangan"),
+                    D("Norin", "Нарынский", "Naryn"),
+                    D("Pop", "Папский", "Pap"),
+                    D("To'raqo'rg'on", "Туракурганский", "Turakurgan"),
+                    D("Uchqo'rg'on", "Учкурганский", "Uchkurgan"),
+                    D("Uychi", "Уйчинский", "Uychi"),
+                    D("Yangiqo'rg'on", "Янгикурганский", "Yangikurgan")
+                ]),
+                R("navoiy", "Navoiy viloyati", "Навоийская область", "Navoiy Region", [
+                    C("Navoiy", "Навои", "Navoiy"),
+                    C("Zarafshon", "Зарафшан", "Zarafshan"),
+                    D("Konimex", "Канимехский", "Konimekh"),
+                    D("Karmana", "Карманинский", "Karmana"),
+                    D("Navbahor", "Навбахорский", "Navbahor"),
+                    D("Nurota", "Нуратинский", "Nurata"),
+                    D("Qiziltepa", "Кизилтепинский", "Kiziltepa"),
+                    D("Tomdi", "Тамдынский", "Tamdy"),
+                    D("Uchquduq", "Учкудукский", "Uchkuduk"),
+                    D("Xatirchi", "Хатырчинский", "Khatyrchi")
+                ]),
+                R("samarkand", "Samarqand viloyati", "Самаркандская область", "Samarkand Region", [
+                    C("Samarqand", "Самарканд", "Samarkand"),
+                    C("Kattaqo'rg'on", "Каттакурган", "Kattakurgan"),
+                    D("Bulung'ur", "Булунгурский", "Bulungur"),
+                    D("Ishtixon", "Иштыханский", "Ishtykhan"),
+                    D("Jomboy", "Джамбайский", "Jambay"),
+                    D("Kattaqo'rg'on", "Каттакурганский", "Kattakurgan"),
+                    D("Narpay", "Нарпайский", "Narpay"),
+                    D("Nurobod", "Нурабадский", "Nurabad"),
+                    D("Oqdaryo", "Акдарьинский", "Akdarya"),
+                    D("Pastdarg'om", "Пастдаргомский", "Pastdargom"),
+                    D("Paxtachi", "Пахтачийский", "Pakhtachi"),
+                    D("Payariq", "Пайарыкский", "Payaryk"),
+                    D("Qo'shrabot", "Кошрабадский", "Koshrabad"),
+                    D("Samarqand", "Самаркандский", "Samarkand"),
+                    D("Toyloq", "Тайлакский", "Taylak"),
+                    D("Urgut", "Ургутский", "Urgut")
+                ]),
+                R("surkhandarya", "Surxondaryo viloyati", "Сурхандарьинская область", "Surkhandarya Region", [
+                    C("Termiz", "Термез", "Termez"),
+                    C("Denov", "Денау", "Denau"),
+                    D("Angor", "Ангорский", "Angor"),
+                    D("Bandixon", "Бандиханский", "Bandikhan"),
+                    D("Boysun", "Байсунский", "Baysun"),
+                    D("Denov", "Денауский", "Denau"),
+                    D("Jarqo'rg'on", "Джаркурганский", "Jarkurgan"),
+                    D("Muzrabot", "Музрабадский", "Muzrabad"),
+                    D("Oltinsoy", "Алтынсайский", "Altynsay"),
+                    D("Qiziriq", "Кизирикский", "Kizirik"),
+                    D("Qumqo'rg'on", "Кумкурганский", "Kumkurgan"),
+                    D("Sariosiyo", "Сариасийский", "Sariasiya"),
+                    D("Sherobod", "Шерабадский", "Sherabad"),
+                    D("Sho'rchi", "Шурчинский", "Shurchi"),
+                    D("Termiz", "Термезский", "Termez"),
+                    D("Uzun", "Узунский", "Uzun")
+                ]),
+                R("syrdarya", "Sirdaryo viloyati", "Сырдарьинская область", "Syrdarya Region", [
+                    C("Guliston", "Гулистан", "Gulistan"),
+                    C("Shirin", "Ширин", "Shirin"),
+                    C("Yangiyer", "Янгиер", "Yangiyer"),
+                    D("Boyovut", "Баяутский", "Bayaut"),
+                    D("Guliston", "Гулистанский", "Gulistan"),
+                    D("Mirzaobod", "Мирзаабадский", "Mirzaabad"),
+                    D("Oqoltin", "Акалтынский", "Akaltyn"),
+                    D("Sardoba", "Сардобинский", "Sardoba"),
+                    D("Sayxunobod", "Сайхунабадский", "Saykhunabad"),
+                    D("Sirdaryo", "Сырдарьинский", "Syrdarya"),
+                    D("Xovos", "Хавастский", "Khavast")
+                ])
+            ]
+        };
+
+
+        /* =====================================================
+           CATEGORY KEY MAP
+           Maps stable category IDs (used in the feedback form,
+           demo dataset and actions) to their translation keys.
+           ===================================================== */
+        const CATEGORY_KEYS = {
+            "waiting-time": "waitingTime",
+            "staff-communication": "staffCommunication",
+            "registration": "registration",
+            "cleanliness": "cleanliness",
+            "doctor-experience": "doctorExperience",
+            "other": "other"
+        };
+        const CATEGORY_IDS = Object.keys(CATEGORY_KEYS);
+
+        function categoryLabel(catId) {
+            return t("cat." + (CATEGORY_KEYS[catId] || "other"));
+        }
+
+        function regionLabel(regionId) {
+            const region = findRegion(regionId);
+            return region ? region.name[currentLang] : regionId;
+        }
+
+        function districtLabel(regionId, districtId) {
+            const region = findRegion(regionId);
+            if (!region) return districtId;
+            const district = region.districts.find(function (d) {return d.id === districtId;});
+            return district ? district.name[currentLang] : districtId;
+        }
+
+        /* =====================================================
+           DEMO / PROTOTYPE FEEDBACK DATASET
+           Fictional data for demonstration only. It does not
+           represent real patients or real healthcare facilities.
+           Patient-submitted feedback is layered on top of this
+           at runtime from localStorage (see getAllFeedback).
+           ===================================================== */
+        const DEMO_FEEDBACK = [
+            {id: "d1", hospital: "City Central Clinic No.1", region: "tashkent-city", district: "chilanzar-district", category: "waiting-time", rating: 1, text: "I waited almost two hours before seeing a doctor.", date: "2026-07-03"},
+            {id: "d2", hospital: "City Central Clinic No.1", region: "tashkent-city", district: "chilanzar-district", category: "waiting-time", rating: 2, text: "Waiting area was crowded and the queue was not managed well.", date: "2026-07-10"},
+            {id: "d3", hospital: "Yunusabad Family Health Center", region: "tashkent-city", district: "yunusabad-district", category: "staff-communication", rating: 2, text: "The nurse did not explain what tests were being done.", date: "2026-07-12"},
+            {id: "d4", hospital: "Bektemir District Polyclinic", region: "tashkent-city", district: "bektemir-district", category: "registration", rating: 3, text: "Registration took a while because the system was slow.", date: "2026-07-15"},
+            {id: "d5", hospital: "City Central Clinic No.1", region: "tashkent-city", district: "chilanzar-district", category: "waiting-time", rating: 1, text: "Two and a half hours in the hallway before being called.", date: "2026-07-20"},
+            {id: "d6", hospital: "Almalyk Regional Hospital", region: "tashkent-region", district: "almalyk-city", category: "cleanliness", rating: 2, text: "Restrooms in the waiting area were not clean.", date: "2026-07-22"},
+            {id: "d7", hospital: "University Teaching Hospital", region: "tashkent-city", district: "yunusabad-district", category: "doctor-experience", rating: 5, text: "The doctor listened carefully and explained everything clearly.", date: "2026-07-25"},
+            {id: "d8", hospital: "Samarkand Regional Medical Center", region: "samarkand", district: "samarkand-city", category: "waiting-time", rating: 2, text: "Long wait even with a scheduled appointment.", date: "2026-07-28"},
+            {id: "d9", hospital: "Bukhara City Hospital", region: "bukhara", district: "bukhara-city", category: "staff-communication", rating: 4, text: "Staff were polite and answered my questions.", date: "2026-07-30"},
+            {id: "d10", hospital: "City Central Clinic No.1", region: "tashkent-city", district: "chilanzar-district", category: "waiting-time", rating: 2, text: "Still a long wait, though slightly better than last time.", date: "2026-08-02"},
+            {id: "d11", hospital: "Andijan Regional Hospital", region: "andijan", district: "andijan-district", category: "cleanliness", rating: 3, text: "Facility was reasonably clean but the hallway needed attention.", date: "2026-08-05"},
+            {id: "d12", hospital: "Fergana City Polyclinic", region: "fergana", district: "fergana-district", category: "registration", rating: 2, text: "Registration desk staff seemed overwhelmed and unorganized.", date: "2026-08-07"},
+            {id: "d13", hospital: "Namangan Family Clinic", region: "namangan", district: "namangan-district", category: "doctor-experience", rating: 1, text: "The doctor seemed rushed and did not answer my questions.", date: "2026-08-09"},
+            {id: "d14", hospital: "Khorezm Regional Hospital", region: "khorezm", district: "urgench-district", category: "other", rating: 3, text: "Overall an average experience, nothing stood out.", date: "2026-08-11"},
+            {id: "d15", hospital: "City Central Clinic No.1", region: "tashkent-city", district: "chilanzar-district", category: "waiting-time", rating: 3, text: "Wait was shorter this time, closer to forty minutes.", date: "2026-08-14"},
+            {id: "d16", hospital: "Karshi City Hospital", region: "kashkadarya", district: "karshi-city", category: "staff-communication", rating: 4, text: "Reception staff were friendly and helpful.", date: "2026-08-18"},
+            {id: "d17", hospital: "City Central Clinic No.1", region: "tashkent-city", district: "chilanzar-district", category: "waiting-time", rating: 4, text: "Called in about twenty minutes after check-in, much better.", date: "2026-08-22"},
+            {id: "d18", hospital: "Termez Regional Hospital", region: "surkhandarya", district: "termez-city", category: "cleanliness", rating: 4, text: "Clean waiting area and clear signage.", date: "2026-08-25"},
+            {id: "d19", hospital: "Jizzakh City Clinic", region: "jizzakh", district: "jizzakh-city", category: "doctor-experience", rating: 5, text: "Very thorough examination and clear explanation of next steps.", date: "2026-08-29"},
+            {id: "d20", hospital: "City Central Clinic No.1", region: "tashkent-city", district: "chilanzar-district", category: "waiting-time", rating: 4, text: "Short wait, registration desk was fast this time.", date: "2026-09-02"},
+            {id: "d21", hospital: "Navoiy Regional Hospital", region: "navoiy", district: "navoiy-city", category: "registration", rating: 3, text: "Registration was fine, minor delay due to paperwork.", date: "2026-09-06"},
+            {id: "d22", hospital: "Gulistan District Hospital", region: "syrdarya", district: "gulistan-city", category: "staff-communication", rating: 2, text: "Felt like the staff did not have time to answer questions.", date: "2026-09-10"},
+            {id: "d23", hospital: "City Central Clinic No.1", region: "tashkent-city", district: "chilanzar-district", category: "waiting-time", rating: 5, text: "Seen right on time, the new process works well.", date: "2026-09-15"},
+            {id: "d24", hospital: "Samarkand Regional Medical Center", region: "samarkand", district: "samarkand-city", category: "doctor-experience", rating: 2, text: "Consultation felt very short and rushed.", date: "2026-09-19"}
+        ];
+
+        const DEMO_ACTIONS = [
+            {
+                id: "a-demo-1",
+                category: "waiting-time",
+                description: "Added an additional registration desk during peak hours at City Central Clinic No.1.",
+                status: "implemented",
+                date: "2026-08-15"
+            }
+        ];
+
+        const PATIENT_FEEDBACK_KEY = "anonback_patient_feedback";
+        const ACTIONS_KEY = "anonback_actions";
+        const PROVIDER_SESSION_KEY = "anonback_provider_session";
+        const PROVIDER_EMAIL = "provider@anonback.uz";
+        const PROVIDER_PASSWORD = "Demo1234";
+
+        function loadJSON(key, fallback) {
+            try {
+                const raw = localStorage.getItem(key);
+                if (!raw) return fallback;
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : fallback;
+            } catch (e) {
+                return fallback;
+            }
+        }
+
+        function saveJSON(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+            } catch (e) { /* storage unavailable */}
+        }
+
+        function loadPatientFeedback() {
+            return loadJSON(PATIENT_FEEDBACK_KEY, []);
+        }
+
+        function savePatientFeedback(list) {
+            saveJSON(PATIENT_FEEDBACK_KEY, list);
+        }
+
+        // Combined dataset: demo/prototype data plus real anonymous
+        // submissions collected from this browser during the demo.
+        function getAllFeedback() {
+            return DEMO_FEEDBACK.concat(loadPatientFeedback());
+        }
+
+        function loadActions() {
+            return loadJSON(ACTIONS_KEY, []);
+        }
+
+        function saveActions(list) {
+            saveJSON(ACTIONS_KEY, list);
+        }
+
+        function getAllActions() {
+            return DEMO_ACTIONS.concat(loadActions());
+        }
+
+        function todayISO() {
+            return new Date().toISOString().slice(0, 10);
+        }
+
+        /* =====================================================
+           AI ANALYSIS (rule-based, on-device)
+           AnonBack's AI analyzes feedback about the *service*,
+           never the patient. It does not diagnose, prescribe,
+           recommend treatment or make clinical decisions.
+           ===================================================== */
+        function deriveSentiment(rating) {
+            if (rating <= 2) return "negative";
+            if (rating === 3) return "neutral";
+            return "positive";
+        }
+
+        function derivePriority(rating) {
+            if (rating <= 2) return "high";
+            if (rating === 3) return "medium";
+            return "low";
+        }
+
+        function aiSummaryFor(item) {
+            const sentiment = deriveSentiment(item.rating);
+            return t("ai.summaryTemplate", {
+                sentiment: t("sentiment." + sentiment),
+                category: categoryLabel(item.category)
+            });
+        }
+
+        function computeStats(dataset) {
+            const total = dataset.length;
+            let ratingSum = 0, positive = 0, negative = 0, highPriority = 0;
+            dataset.forEach(function (item) {
+                ratingSum += item.rating;
+                const sentiment = deriveSentiment(item.rating);
+                if (sentiment === "positive") positive++;
+                if (sentiment === "negative") negative++;
+                if (derivePriority(item.rating) === "high") highPriority++;
+            });
+            return {
+                total: total,
+                avgRating: total ? (ratingSum / total) : 0,
+                positive: positive,
+                negative: negative,
+                positivePct: total ? Math.round((positive / total) * 100) : 0,
+                negativePct: total ? Math.round((negative / total) * 100) : 0,
+                highPriority: highPriority
+            };
+        }
+
+        function categoryCounts(dataset) {
+            const counts = {};
+            CATEGORY_IDS.forEach(function (id) {counts[id] = 0;});
+            dataset.forEach(function (item) {
+                counts[item.category] = (counts[item.category] || 0) + 1;
+            });
+            return CATEGORY_IDS.map(function (id) {
+                return {id: id, label: categoryLabel(id), count: counts[id]};
+            });
+        }
+
+        function topCategory(dataset) {
+            const counts = categoryCounts(dataset);
+            return counts.reduce(function (best, row) {
+                return (!best || row.count > best.count) ? row : best;
+            }, null);
+        }
+
+        /* =====================================================
+           SIMPLE BAR CHART RENDERER (no external chart library)
+           rows: [{ label, count, display }]. Bars are sized
+           relative to the largest count in the list.
+           ===================================================== */
+        function renderBars(containerId, rows) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const maxCount = rows.reduce(function (m, r) {return Math.max(m, r.count);}, 0) || 1;
+
+            if (rows.length === 0 || maxCount === 0) {
+                container.innerHTML = '<div class="empty-state">' + t("common.noResults") + "</div>";
+                return;
+            }
+
+            container.innerHTML = rows.map(function (row) {
+                const pct = Math.round((row.count / maxCount) * 100);
+                const display = row.display !== undefined ? row.display : row.count;
+                return '<div class="bar-row">' +
+                    '<span class="bar-name">' + escapeHtml(row.label) + '</span>' +
+                    '<span class="bar-track"><span class="bar-fill" style="width:' + pct + '%"></span></span>' +
+                    '<span class="bar-value">' + escapeHtml(String(display)) + '</span>' +
+                    '</div>';
+            }).join("");
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement("div");
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        /* =====================================================
+           PROVIDER AUTHENTICATION (prototype only)
+           Simulated with a fixed demo credential and a
+           sessionStorage flag. Not production security.
+           ===================================================== */
+        function isProviderLoggedIn() {
+            try {
+                return sessionStorage.getItem(PROVIDER_SESSION_KEY) === "1";
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function openProviderEntry() {
+            if (isProviderLoggedIn()) {
+                showProviderDashboard();
+            } else {
+                showProviderLoginPage();
+            }
+        }
+
+        function hideAllPages() {
+            document.getElementById("home").style.display = "none";
+            document.getElementById("feedbackPage").style.display = "none";
+            document.getElementById("confirmationPage").style.display = "none";
+            document.getElementById("howItWorksPage").style.display = "none";
+            document.getElementById("providerLoginPage").style.display = "none";
+            document.getElementById("providerDashboard").style.display = "none";
+        }
+
+        function showProviderLoginPage() {
+            hideAllPages();
+            document.getElementById("loginEmail").value = "";
+            document.getElementById("loginPassword").value = "";
+            showLoginError(null);
+            document.getElementById("providerLoginPage").style.display = "flex";
+            window.scrollTo(0, 0);
+        }
+
+        function showLoginError(key) {
+            const box = document.getElementById("loginError");
+            if (key) {
+                box.textContent = t(key);
+                box.hidden = false;
+            } else {
+                box.textContent = "";
+                box.hidden = true;
+            }
+        }
+
+        function providerLogin() {
+            const email = document.getElementById("loginEmail").value.trim();
+            const password = document.getElementById("loginPassword").value;
+
+            if (!email || !password) {
+                showLoginError("login.errorIncomplete");
+                return;
+            }
+
+            if (email.toLowerCase() !== PROVIDER_EMAIL || password !== PROVIDER_PASSWORD) {
+                showLoginError("login.errorInvalid");
+                return;
+            }
+
+            try {
+                sessionStorage.setItem(PROVIDER_SESSION_KEY, "1");
+            } catch (e) { /* storage unavailable */}
+
+            showProviderDashboard();
+        }
+
+        function providerLogout() {
+            try {
+                sessionStorage.removeItem(PROVIDER_SESSION_KEY);
+            } catch (e) { /* storage unavailable */}
+            showHome();
+        }
+
+        let dashboardInitialized = false;
+        let activeDashboardTab = "overview";
+
+        function showProviderDashboard() {
+            hideAllPages();
+            document.getElementById("providerDashboard").style.display = "block";
+            if (!dashboardInitialized) {
+                initDashboardFilters();
+                initActionForm();
+                dashboardInitialized = true;
+            }
+            showDashboardTab(activeDashboardTab);
+            window.scrollTo(0, 0);
+        }
+
+        function dashboardIsVisible() {
+            const el = document.getElementById("providerDashboard");
+            return el && el.style.display !== "none" && el.style.display !== "";
+        }
+
+        function showDashboardTab(tabName) {
+            activeDashboardTab = tabName;
+            document.querySelectorAll(".dash-tab-btn").forEach(function (btn) {
+                btn.classList.toggle("active", btn.getAttribute("data-tab") === tabName);
+            });
+            document.querySelectorAll(".tab-panel").forEach(function (panel) {
+                panel.classList.toggle("active", panel.id === "tab-" + tabName);
+            });
+
+            if (tabName === "overview") renderOverviewTab();
+            if (tabName === "feedback") renderFeedbackTab();
+            if (tabName === "analytics") renderAnalyticsTab();
+            if (tabName === "ai") renderAITab();
+            if (tabName === "trends") renderTrendsTab();
+            if (tabName === "actions") renderActionsTab();
+        }
+
+        function refreshDashboardIfVisible() {
+            if (!dashboardIsVisible() || !dashboardInitialized) return;
+            populateFilterOptions();
+            populateActionCategoryOptions();
+            showDashboardTab(activeDashboardTab);
+        }
+
+        /* =====================================================
+           OVERVIEW TAB
+           ===================================================== */
+        function renderOverviewTab() {
+            const dataset = getAllFeedback();
+            const stats = computeStats(dataset);
+
+            document.getElementById("statTotal").textContent = stats.total;
+            document.getElementById("statAvgRating").textContent = stats.total ? stats.avgRating.toFixed(1) : "0.0";
+            document.getElementById("statPositive").textContent = stats.positive + " (" + stats.positivePct + "%)";
+            document.getElementById("statNegative").textContent = stats.negative + " (" + stats.negativePct + "%)";
+            document.getElementById("statHighPriority").textContent = stats.highPriority;
+
+            const top = topCategory(dataset);
+            document.getElementById("overviewTopIssue").textContent = top && top.count > 0
+                ? top.label + " — " + top.count + " (" + Math.round((top.count / (stats.total || 1)) * 100) + "%)"
+                : t("common.noResults");
+
+            renderBars("overviewCategoryBars", categoryCounts(dataset).map(function (row) {
+                return {label: row.label, count: row.count};
+            }));
+        }
+
+        /* =====================================================
+           FEEDBACK TAB — FILTERS, SEARCH, TABLE, DETAIL MODAL
+           ===================================================== */
+        function initDashboardFilters() {
+            populateFilterOptions();
+
+            ["filterSearch", "filterCategory", "filterRating", "filterSentiment", "filterPriority", "filterDateFrom", "filterDateTo"]
+                .forEach(function (id) {
+                    document.getElementById(id).addEventListener("input", renderFeedbackTable);
+                    document.getElementById(id).addEventListener("change", renderFeedbackTable);
+                });
+
+            document.getElementById("filterRegion").addEventListener("change", function () {
+                populateFilterDistrictOptions();
+                renderFeedbackTable();
+            });
+            document.getElementById("filterDistrict").addEventListener("change", renderFeedbackTable);
+        }
+
+        function populateFilterOptions() {
+            const catSelect = document.getElementById("filterCategory");
+            const prevCat = catSelect.value;
+            catSelect.innerHTML = "";
+            appendOption(catSelect, "", t("common.all"));
+            CATEGORY_IDS.forEach(function (id) {
+                appendOption(catSelect, id, categoryLabel(id));
+            });
+            catSelect.value = prevCat;
+
+            const ratingSelect = document.getElementById("filterRating");
+            const prevRating = ratingSelect.value;
+            ratingSelect.innerHTML = "";
+            appendOption(ratingSelect, "", t("common.all"));
+            for (let n = 1; n <= 5; n++) appendOption(ratingSelect, String(n), String(n));
+            ratingSelect.value = prevRating;
+
+            const sentimentSelect = document.getElementById("filterSentiment");
+            const prevSentiment = sentimentSelect.value;
+            sentimentSelect.innerHTML = "";
+            appendOption(sentimentSelect, "", t("common.all"));
+            ["positive", "neutral", "negative"].forEach(function (s) {
+                appendOption(sentimentSelect, s, t("sentiment." + s));
+            });
+            sentimentSelect.value = prevSentiment;
+
+            const prioritySelect = document.getElementById("filterPriority");
+            const prevPriority = prioritySelect.value;
+            prioritySelect.innerHTML = "";
+            appendOption(prioritySelect, "", t("common.all"));
+            ["high", "medium", "low"].forEach(function (p) {
+                appendOption(prioritySelect, p, t("priority." + p));
+            });
+            prioritySelect.value = prevPriority;
+
+            const regionSelect = document.getElementById("filterRegion");
+            const prevRegion = regionSelect.value;
+            regionSelect.innerHTML = "";
+            appendOption(regionSelect, "", t("common.all"));
+            locations.regions
+                .slice()
+                .sort(function (a, b) {return a.name[currentLang].localeCompare(b.name[currentLang], currentLang);})
+                .forEach(function (region) {
+                    appendOption(regionSelect, region.id, region.name[currentLang]);
+                });
+            regionSelect.value = findRegion(prevRegion) ? prevRegion : "";
+
+            populateFilterDistrictOptions();
+        }
+
+        function populateFilterDistrictOptions() {
+            const regionSelect = document.getElementById("filterRegion");
+            const districtSelect = document.getElementById("filterDistrict");
+            const prevDistrict = districtSelect.value;
+            const region = findRegion(regionSelect.value);
+
+            districtSelect.innerHTML = "";
+            appendOption(districtSelect, "", t("common.all"));
+
+            if (!region) {
+                districtSelect.disabled = true;
+                districtSelect.value = "";
+                return;
+            }
+
+            districtSelect.disabled = false;
+            region.districts
+                .slice()
+                .sort(function (a, b) {return a.sort[currentLang].localeCompare(b.sort[currentLang], currentLang);})
+                .forEach(function (d) {appendOption(districtSelect, d.id, d.name[currentLang]);});
+
+            districtSelect.value = region.districts.some(function (d) {return d.id === prevDistrict;}) ? prevDistrict : "";
+        }
+
+        function resetFilters() {
+            document.getElementById("filterSearch").value = "";
+            document.getElementById("filterCategory").value = "";
+            document.getElementById("filterRating").value = "";
+            document.getElementById("filterSentiment").value = "";
+            document.getElementById("filterPriority").value = "";
+            document.getElementById("filterRegion").value = "";
+            populateFilterDistrictOptions();
+            document.getElementById("filterDateFrom").value = "";
+            document.getElementById("filterDateTo").value = "";
+            renderFeedbackTable();
+        }
+
+        function applyFilters(dataset) {
+            const search = document.getElementById("filterSearch").value.trim().toLowerCase();
+            const category = document.getElementById("filterCategory").value;
+            const rating = document.getElementById("filterRating").value;
+            const sentiment = document.getElementById("filterSentiment").value;
+            const priority = document.getElementById("filterPriority").value;
+            const region = document.getElementById("filterRegion").value;
+            const district = document.getElementById("filterDistrict").value;
+            const dateFrom = document.getElementById("filterDateFrom").value;
+            const dateTo = document.getElementById("filterDateTo").value;
+
+            return dataset.filter(function (item) {
+                if (search && (item.hospital + " " + item.text).toLowerCase().indexOf(search) === -1) return false;
+                if (category && item.category !== category) return false;
+                if (rating && String(item.rating) !== rating) return false;
+                if (sentiment && deriveSentiment(item.rating) !== sentiment) return false;
+                if (priority && derivePriority(item.rating) !== priority) return false;
+                if (region && item.region !== region) return false;
+                if (district && item.district !== district) return false;
+                if (dateFrom && item.date < dateFrom) return false;
+                if (dateTo && item.date > dateTo) return false;
+                return true;
+            });
+        }
+
+        function renderFeedbackTable() {
+            const dataset = getAllFeedback();
+            const filtered = applyFilters(dataset).sort(function (a, b) {return b.date.localeCompare(a.date);});
+
+            document.getElementById("resultsCount").textContent = t("filter.resultsCount", {n: filtered.length});
+
+            const body = document.getElementById("feedbackTableBody");
+            const emptyState = document.getElementById("feedbackEmptyState");
+
+            if (filtered.length === 0) {
+                body.innerHTML = "";
+                emptyState.hidden = false;
+                return;
+            }
+            emptyState.hidden = true;
+
+            body.innerHTML = filtered.map(function (item) {
+                const sentiment = deriveSentiment(item.rating);
+                const priority = derivePriority(item.rating);
+                return "<tr>" +
+                    "<td>" + item.date + "</td>" +
+                    "<td>" + escapeHtml(regionLabel(item.region)) + "</td>" +
+                    "<td>" + escapeHtml(districtLabel(item.region, item.district)) + "</td>" +
+                    "<td class=\"wrap\">" + escapeHtml(item.hospital) + "</td>" +
+                    "<td>" + escapeHtml(categoryLabel(item.category)) + "</td>" +
+                    "<td>" + item.rating + " / 5</td>" +
+                    "<td><span class=\"pill pill-" + sentiment + "\">" + t("sentiment." + sentiment) + "</span></td>" +
+                    "<td><span class=\"pill pill-" + priority + "\">" + t("priority." + priority) + "</span></td>" +
+                    "<td><button type=\"button\" class=\"view-btn\" onclick=\"openFeedbackDetail('" + item.id + "')\">" + t("th.actionsCol") + "</button></td>" +
+                    "</tr>";
+            }).join("");
+        }
+
+        let lastOpenedFeedbackId = null;
+
+        function openFeedbackDetail(id) {
+            const item = getAllFeedback().find(function (i) {return i.id === id;});
+            if (!item) return;
+            lastOpenedFeedbackId = id;
+
+            const sentiment = deriveSentiment(item.rating);
+            const priority = derivePriority(item.rating);
+
+            document.getElementById("detailDate").textContent = item.date;
+            document.getElementById("detailRegion").textContent = regionLabel(item.region);
+            document.getElementById("detailDistrict").textContent = districtLabel(item.region, item.district);
+            document.getElementById("detailHospital").textContent = item.hospital;
+            document.getElementById("detailCategory").textContent = categoryLabel(item.category);
+            document.getElementById("detailRating").textContent = item.rating + " / 5";
+            document.getElementById("detailText").textContent = item.text;
+
+            document.getElementById("detailAiCategory").textContent = categoryLabel(item.category);
+            document.getElementById("detailAiSentiment").textContent = t("sentiment." + sentiment);
+            document.getElementById("detailAiPriority").textContent = t("priority." + priority);
+            document.getElementById("detailAiSummary").textContent = aiSummaryFor(item);
+
+            document.getElementById("feedbackModal").classList.add("active");
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById("feedbackModal").classList.remove("active");
+            lastOpenedFeedbackId = null;
+        }
+
+        /* =====================================================
+           ANALYTICS TAB
+           ===================================================== */
+        function monthlyVolume(dataset) {
+            const counts = {};
+            dataset.forEach(function (item) {
+                const key = item.date.slice(0, 7);
+                counts[key] = (counts[key] || 0) + 1;
+            });
+            return Object.keys(counts).sort().map(function (key) {
+                return {label: key, count: counts[key]};
+            });
+        }
+
+        function renderAnalyticsTab() {
+            const dataset = getAllFeedback();
+
+            renderBars("analyticsCategoryBars", categoryCounts(dataset).map(function (row) {
+                return {label: row.label, count: row.count};
+            }));
+
+            const ratingRows = [5, 4, 3, 2, 1].map(function (n) {
+                return {label: n + " / 5", count: dataset.filter(function (i) {return i.rating === n;}).length};
+            });
+            renderBars("analyticsRatingBars", ratingRows);
+
+            const sentimentRows = ["positive", "neutral", "negative"].map(function (s) {
+                return {label: t("sentiment." + s), count: dataset.filter(function (i) {return deriveSentiment(i.rating) === s;}).length};
+            });
+            renderBars("analyticsSentimentBars", sentimentRows);
+
+            renderBars("analyticsVolumeBars", monthlyVolume(dataset));
+
+            const freqList = document.getElementById("analyticsFrequentList");
+            const total = dataset.length || 1;
+            const sortedCats = categoryCounts(dataset).slice().sort(function (a, b) {return b.count - a.count;});
+            freqList.innerHTML = sortedCats.filter(function (r) {return r.count > 0;}).map(function (row) {
+                return "<li>" + escapeHtml(row.label) + " — " + row.count + " (" + Math.round((row.count / total) * 100) + "%)</li>";
+            }).join("") || '<li class="empty-state">' + t("common.noResults") + "</li>";
+        }
+
+        /* =====================================================
+           AI INSIGHTS TAB
+           ===================================================== */
+        function renderAITab() {
+            const dataset = getAllFeedback();
+            const stats = computeStats(dataset);
+            const top = topCategory(dataset);
+
+            document.getElementById("aiOverallSummary").textContent = dataset.length === 0
+                ? t("ai.overallSummaryEmpty")
+                : t("ai.overallSummary", {total: stats.total, pct: stats.negativePct, category: top ? top.label : ""});
+
+            document.getElementById("aiTopIssue").textContent = top && top.count > 0
+                ? top.label + " — " + top.count + " (" + Math.round((top.count / (stats.total || 1)) * 100) + "%)"
+                : t("common.noResults");
+
+            renderBars("aiCategoryBars", categoryCounts(dataset).map(function (row) {
+                return {label: row.label, count: row.count};
+            }));
+
+            const sentimentRows = ["positive", "neutral", "negative"].map(function (s) {
+                return {label: t("sentiment." + s), count: dataset.filter(function (i) {return deriveSentiment(i.rating) === s;}).length};
+            });
+            renderBars("aiSentimentBars", sentimentRows);
+
+            const highPriorityItems = dataset
+                .filter(function (i) {return derivePriority(i.rating) === "high";})
+                .sort(function (a, b) {return b.date.localeCompare(a.date);})
+                .slice(0, 8);
+            const hpList = document.getElementById("aiHighPriorityList");
+            hpList.innerHTML = highPriorityItems.length
+                ? highPriorityItems.map(function (item) {
+                    return "<li>" + item.date + " — " + escapeHtml(categoryLabel(item.category)) + " — " + escapeHtml(item.hospital) + "</li>";
+                }).join("")
+                : '<li class="empty-state">' + t("common.noResults") + "</li>";
+
+            const recurring = categoryCounts(dataset)
+                .filter(function (r) {return r.count > 0;})
+                .sort(function (a, b) {return b.count - a.count;})
+                .slice(0, 5);
+            const total = dataset.length || 1;
+            const recurringList = document.getElementById("aiRecurringList");
+            recurringList.innerHTML = recurring.length
+                ? recurring.map(function (row) {
+                    return "<li>" + escapeHtml(row.label) + " — " + Math.round((row.count / total) * 100) + "%</li>";
+                }).join("")
+                : '<li class="empty-state">' + t("common.noResults") + "</li>";
+        }
+
+        /* =====================================================
+           TRENDS TAB
+           ===================================================== */
+        function daysAgoISO(days) {
+            const d = new Date();
+            d.setDate(d.getDate() - days);
+            return d.toISOString().slice(0, 10);
+        }
+
+        function renderTrendDelta(elementId, currentValue, previousValue, higherIsBad) {
+            const el = document.getElementById(elementId);
+            const diff = currentValue - previousValue;
+            if (previousValue === 0 && currentValue === 0) {
+                el.textContent = t("common.notEnoughData");
+                el.className = "trend-delta flat";
+                return;
+            }
+            const arrow = diff > 0 ? "\u25B2" : (diff < 0 ? "\u25BC" : "\u2013");
+            const pctText = previousValue !== 0 ? Math.round((diff / previousValue) * 100) + "%" : "";
+            el.textContent = arrow + " " + (pctText || diff.toFixed(1)) + " " + t("trends.vsPrevious");
+
+            let cls = "flat";
+            if (diff > 0) cls = higherIsBad ? "up-bad" : "up-good";
+            if (diff < 0) cls = higherIsBad ? "down-good" : "down-bad";
+            el.className = "trend-delta " + cls;
+        }
+
+        function renderTrendsTab() {
+            const dataset = getAllFeedback();
+            const currFrom = daysAgoISO(30);
+            const prevFrom = daysAgoISO(60);
+
+            const currSet = dataset.filter(function (i) {return i.date >= currFrom;});
+            const prevSet = dataset.filter(function (i) {return i.date >= prevFrom && i.date < currFrom;});
+
+            const currStats = computeStats(currSet);
+            const prevStats = computeStats(prevSet);
+
+            document.getElementById("trendVolumeCurr").textContent = t("trends.last30") + ": " + currStats.total;
+            document.getElementById("trendVolumePrev").textContent = t("trends.previous30") + ": " + prevStats.total;
+            renderTrendDelta("trendVolumeDelta", currStats.total, prevStats.total, false);
+
+            document.getElementById("trendRatingCurr").textContent = t("trends.last30") + ": " + (currStats.total ? currStats.avgRating.toFixed(1) : "0.0");
+            document.getElementById("trendRatingPrev").textContent = t("trends.previous30") + ": " + (prevStats.total ? prevStats.avgRating.toFixed(1) : "0.0");
+            renderTrendDelta("trendRatingDelta", currStats.avgRating, prevStats.avgRating, false);
+
+            document.getElementById("trendNegCurr").textContent = t("trends.last30") + ": " + currStats.negativePct + "%";
+            document.getElementById("trendNegPrev").textContent = t("trends.previous30") + ": " + prevStats.negativePct + "%";
+            renderTrendDelta("trendNegDelta", currStats.negativePct, prevStats.negativePct, true);
+
+            const currCats = categoryCounts(currSet);
+            const prevCats = categoryCounts(prevSet);
+            const rows = CATEGORY_IDS.map(function (id, idx) {
+                const currCount = currCats[idx].count;
+                const prevCount = prevCats[idx].count;
+                const diff = currCount - prevCount;
+                const arrow = diff > 0 ? "\u25B2" : (diff < 0 ? "\u25BC" : "\u2013");
+                return "<div class=\"bar-row\"><span class=\"bar-name\">" + escapeHtml(categoryLabel(id)) +
+                    "</span><span style=\"color:#7488a0;\">" + t("trends.previous30") + ": " + prevCount + " &rarr; " + t("trends.last30") + ": " + currCount +
+                    "</span><span class=\"bar-value\">" + arrow + "</span></div>";
+            }).join("");
+            document.getElementById("trendCategoryTable").innerHTML = rows;
+
+            renderBars("trendVolumeBars", monthlyVolume(dataset));
+        }
+
+        /* =====================================================
+           ACTIONS TAB
+           ===================================================== */
+        function initActionForm() {
+            populateActionCategoryOptions();
+            document.getElementById("actionDate").value = todayISO();
+        }
+
+        function populateActionCategoryOptions() {
+            const select = document.getElementById("actionCategory");
+            const prev = select.value;
+            select.innerHTML = "";
+            CATEGORY_IDS.forEach(function (id) {
+                appendOption(select, id, categoryLabel(id));
+            });
+            select.value = CATEGORY_IDS.indexOf(prev) !== -1 ? prev : CATEGORY_IDS[0];
+        }
+
+        function showActionError(key) {
+            const box = document.getElementById("actionError");
+            if (key) {
+                box.textContent = t(key);
+                box.hidden = false;
+            } else {
+                box.textContent = "";
+                box.hidden = true;
+            }
+        }
+
+        function saveAction() {
+            const category = document.getElementById("actionCategory").value;
+            const description = document.getElementById("actionDescription").value.trim();
+            const status = document.getElementById("actionStatus").value;
+            const date = document.getElementById("actionDate").value;
+
+            if (!category || !description || !status || !date) {
+                showActionError("actions.errorIncomplete");
+                return;
+            }
+
+            showActionError(null);
+
+            const actions = loadActions();
+            actions.push({id: "a-" + Date.now(), category: category, description: description, status: status, date: date});
+            saveActions(actions);
+
+            document.getElementById("actionDescription").value = "";
+            document.getElementById("actionDate").value = todayISO();
+
+            renderActionsTab();
+        }
+
+        function actionCorrelationNote(action) {
+            const dataset = getAllFeedback().filter(function (i) {return i.category === action.category;});
+            const before = dataset.filter(function (i) {return i.date < action.date;});
+            const after = dataset.filter(function (i) {return i.date >= action.date;});
+
+            if (before.length === 0 || after.length === 0) {
+                return t("common.notEnoughData");
+            }
+
+            const beforeNegRate = before.filter(function (i) {return deriveSentiment(i.rating) === "negative";}).length / before.length;
+            const afterNegRate = after.filter(function (i) {return deriveSentiment(i.rating) === "negative";}).length / after.length;
+
+            const key = afterNegRate < beforeNegRate ? "actions.correlationDecrease" : "actions.correlationNoDecrease";
+            return t(key, {category: categoryLabel(action.category)});
+        }
+
+        function renderActionsTab() {
+            const actions = getAllActions().slice().sort(function (a, b) {return b.date.localeCompare(a.date);});
+            const list = document.getElementById("actionsList");
+
+            if (actions.length === 0) {
+                list.innerHTML = '<div class="empty-state">' + t("actions.empty") + "</div>";
+                return;
+            }
+
+            list.innerHTML = actions.map(function (action) {
+                return '<div class="action-card">' +
+                    '<div class="action-card-head">' +
+                    '<span class="action-cat">' + escapeHtml(categoryLabel(action.category)) + "</span>" +
+                    '<span class="pill pill-' + action.status + '">' + t("status." + toCamel(action.status)) + "</span>" +
+                    "</div>" +
+                    "<p>" + escapeHtml(action.description) + "</p>" +
+                    '<div class="action-date">' + action.date + "</div>" +
+                    '<div class="correlation-note">' + escapeHtml(actionCorrelationNote(action)) + "</div>" +
+                    "</div>";
+            }).join("");
+        }
+
+        function toCamel(status) {
+            if (status === "in-progress") return "inProgress";
+            return status;
+        }
+
+        /* =====================================================
+           LANGUAGE SYSTEM
+           ===================================================== */
+        const STORAGE_KEY = "anonback_lang";
+        const DEFAULT_LANG = "uz";
+        let currentLang = DEFAULT_LANG;
+        let currentErrorKey = null;
+        let selectedRating = 0;
+
+        function t(key, params) {
+            const dict = translations[currentLang] || {};
+            let text = dict[key];
+            if (text === undefined) text = translations.en[key];
+            if (text === undefined) text = key;
+            if (params) {
+                Object.keys(params).forEach(function (name) {
+                    text = text.replace("{" + name + "}", params[name]);
+                });
+            }
+            return text;
+        }
+
+        function readStoredLang() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored && translations[stored]) return stored;
+            } catch (e) { /* storage unavailable */}
+            return DEFAULT_LANG;
+        }
+
+        function storeLang(lang) {
+            try {
+                localStorage.setItem(STORAGE_KEY, lang);
+            } catch (e) { /* storage unavailable */}
+        }
+
+        // Applies translations to every marked element inside root.
+        // Can be called again for dynamically added markup.
+        function applyTranslations(root) {
+            root = root || document;
+            root.querySelectorAll("[data-i18n]").forEach(function (el) {
+                el.textContent = t(el.getAttribute("data-i18n"));
+            });
+            root.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+                el.setAttribute("placeholder", t(el.getAttribute("data-i18n-placeholder")));
+            });
+            root.querySelectorAll("[data-i18n-title]").forEach(function (el) {
+                el.setAttribute("title", t(el.getAttribute("data-i18n-title")));
+            });
+            root.querySelectorAll("[data-i18n-aria-label]").forEach(function (el) {
+                el.setAttribute("aria-label", t(el.getAttribute("data-i18n-aria-label")));
+            });
+        }
+
+        function setLanguage(lang) {
+            if (!translations[lang]) lang = DEFAULT_LANG;
+            currentLang = lang;
+            storeLang(lang);
+
+            document.documentElement.lang = lang;
+            document.title = t("meta.title");
+
+            applyTranslations();
+            renderRegions();
+            renderDistricts(true);
+            renderRatingTitles();
+            renderError();
+
+            document.querySelectorAll(".lang-btn").forEach(function (btn) {
+                const active = btn.getAttribute("data-lang") === lang;
+                btn.classList.toggle("active", active);
+                btn.setAttribute("aria-pressed", active ? "true" : "false");
+            });
+
+            refreshDashboardIfVisible();
+            if (lastOpenedFeedbackId) openFeedbackDetail(lastOpenedFeedbackId);
+        }
+
+        /* =====================================================
+           REGION / DISTRICT
+           ===================================================== */
+        function findRegion(id) {
+            return locations.regions.find(function (r) {return r.id === id;}) || null;
+        }
+
+        function appendOption(select, value, text) {
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = text;
+            select.appendChild(option);
+        }
+
+        function renderRegions() {
+            const select = document.getElementById("region");
+            const previous = select.value;
+
+            const pinned = locations.pinned.map(findRegion);
+            const others = locations.regions
+                .filter(function (r) {return locations.pinned.indexOf(r.id) === -1;})
+                .sort(function (a, b) {return a.name[currentLang].localeCompare(b.name[currentLang], currentLang);});
+
+            select.innerHTML = "";
+            appendOption(select, "", t("fb.regionPh"));
+            pinned.concat(others).forEach(function (region) {
+                appendOption(select, region.id, region.name[currentLang]);
+            });
+
+            select.value = findRegion(previous) ? previous : "";
+        }
+
+        function renderDistricts(keepSelection) {
+            const regionSelect = document.getElementById("region");
+            const select = document.getElementById("district");
+            const region = findRegion(regionSelect.value);
+            const previous = keepSelection ? select.value : "";
+
+            select.innerHTML = "";
+
+            if (!region) {
+                appendOption(select, "", t("fb.districtPhDisabled"));
+                select.disabled = true;
+                select.value = "";
+                return;
+            }
+
+            appendOption(select, "", t("fb.districtPh"));
+            region.districts
+                .slice()
+                .sort(function (a, b) {
+                    return a.sort[currentLang].localeCompare(b.sort[currentLang], currentLang) ||
+                        a.id.localeCompare(b.id);
+                })
+                .forEach(function (district) {
+                    appendOption(select, district.id, district.name[currentLang]);
+                });
+
+            select.disabled = false;
+
+            const stillValid = region.districts.some(function (d) {return d.id === previous;});
+            select.value = stillValid ? previous : "";
+        }
+
+        /* =====================================================
+           FORM HELPERS
+           ===================================================== */
+        function renderRatingTitles() {
+            document.querySelectorAll(".rating button").forEach(function (button) {
+                const n = button.getAttribute("data-rating");
+                button.setAttribute("title", t("fb.ratingTitle", {n: n}));
+                button.setAttribute("aria-label", t("fb.ratingTitle", {n: n}));
+            });
+        }
+
+        function showError(key) {
+            currentErrorKey = key;
+            renderError();
+        }
+
+        function renderError() {
+            const box = document.getElementById("formError");
+            if (currentErrorKey) {
+                box.textContent = t(currentErrorKey);
+                box.hidden = false;
+            } else {
+                box.textContent = "";
+                box.hidden = true;
+            }
+        }
+
+        /* =====================================================
+           EXISTING NAVIGATION AND FORM LOGIC
+           ===================================================== */
+        function showFeedback() {
+            hideAllPages();
+            document.getElementById("feedbackPage").style.display = "block";
+            window.scrollTo(0, 0);
+        }
+
+
+        function showHome() {
+            hideAllPages();
+            document.getElementById("home").style.display = "flex";
+            window.scrollTo(0, 0);
+        }
+
+        function showConfirmation() {
+            hideAllPages();
+            document.getElementById("confirmationPage").style.display = "flex";
+            window.scrollTo(0, 0);
+        }
+
+        function setRating(rating) {
+            selectedRating = rating;
+
+            const buttons = document.querySelectorAll(".rating button");
+
+            buttons.forEach(function (button, index) {
+                button.classList.toggle("active", index < rating);
+            });
+        }
+
+        function submitFeedback() {
+            const hospitalName = document.getElementById("hospital").value; // stored exactly as entered
+            const region = document.getElementById("region").value;
+            const district = document.getElementById("district").value;
+            const feedback = document.getElementById("feedbackText").value.trim();
+            const category = document.getElementById("category").value;
+
+            const regionData = findRegion(region);
+            const districtValid = !!regionData && regionData.districts.some(function (d) {return d.id === district;});
+            const hospitalValid = hospitalName.trim().length > 0;
+
+            if (regionData && districtValid && !hospitalValid && feedback && category && selectedRating > 0) {
+                showError("fb.errorHospital");
+                return;
+            }
+
+            if (!regionData || !districtValid || !hospitalValid || !feedback || !category || selectedRating === 0) {
+                showError("fb.errorIncomplete");
+                return;
+            }
+
+            showError(null);
+
+            // Prototype data layer: store the anonymous submission locally so it
+            // becomes available to the provider dashboard (see getAllFeedback()).
+            // No patient identity fields (name, phone, email, ID) are collected or stored.
+            const stored = loadPatientFeedback();
+            stored.push({
+                id: "p-" + Date.now(),
+                hospital: hospitalName.trim(),
+                region: region,
+                district: district,
+                category: category,
+                rating: selectedRating,
+                text: feedback,
+                date: todayISO()
+            });
+            savePatientFeedback(stored);
+
+            document.getElementById("region").value = "";
+            renderDistricts(false);
+            document.getElementById("hospital").value = "";
+            document.getElementById("feedbackText").value = "";
+            document.getElementById("category").value = "";
+
+            setRating(0);
+            showConfirmation();
+        }
+        function learnMore() {
+            hideAllPages();
+            document.getElementById("howItWorksPage").style.display = "flex";
+            window.scrollTo(0, 0);
+        }
+
+        /* =====================================================
+           INIT
+           ===================================================== */
+        document.querySelectorAll(".lang-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                setLanguage(btn.getAttribute("data-lang"));
+            });
+        });
+
+        // Changing region always clears the district
+        document.getElementById("region").addEventListener("change", function () {
+            renderDistricts(false);
+        });
+
+        // Hide the validation message as soon as the user edits the form
+        document.getElementById("feedbackCard").addEventListener("input", function () {
+            if (currentErrorKey) showError(null);
+        });
+        document.getElementById("feedbackCard").addEventListener("change", function () {
+            if (currentErrorKey) showError(null);
+        });
+
+        setLanguage(readStoredLang());
+    </script>
+
+</body>
+
+</html>
